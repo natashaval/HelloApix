@@ -1,1 +1,1 @@
-this is from gitbash curl
+bash diganti swagger buat liat commit response
