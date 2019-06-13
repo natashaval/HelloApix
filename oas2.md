@@ -1,26 +1,6 @@
 {
-  "swagger" : "2.0",
-  "info" : {
-    "license" : {
-      "name" : "Apache 2.0",
-      "description" : null,
-      "email" : null,
-      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
-    },
-    "contact" : {
-      "name" : null,
-      "description" : null,
-      "email" : "apiteam@swagger.io",
-      "url" : null
-    },
-    "description" : "This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.",
-    "termsOfService" : "http://swagger.io/terms/",
-    "title" : "Swagger Petstore",
-    "version" : "1.0.0"
-  },
-  "host" : "petstore.swagger.io",
-  "basePath" : "/v2",
   "schema" : [ "https", "http" ],
+  "basePath" : "/v2",
   "paths" : {
     "/store/inventory" : {
       "get" : {
@@ -708,6 +688,7 @@
       } ]
     }
   },
+  "host" : "petstore.swagger.io",
   "definitions" : {
     "Order" : {
       "schema" : {
@@ -895,5 +876,24 @@
       "in" : "header",
       "scopes" : { }
     }
+  },
+  "swagger" : "2.0",
+  "info" : {
+    "license" : {
+      "name" : "Apache 2.0",
+      "description" : null,
+      "email" : null,
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "contact" : {
+      "name" : null,
+      "description" : null,
+      "email" : "apiteam@swagger.io",
+      "url" : null
+    },
+    "description" : "This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.",
+    "termsOfService" : "http://swagger.io/terms/",
+    "title" : "Swagger Petstore",
+    "version" : "1.0.0"
   }
 }
