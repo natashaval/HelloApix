@@ -725,23 +725,6 @@
         }
       }
     },
-    "Category" : {
-      "schema" : {
-        "type" : "object",
-        "properties" : {
-          "name" : {
-            "type" : "string"
-          },
-          "id" : {
-            "type" : "integer",
-            "format" : "int64"
-          }
-        },
-        "xml" : {
-          "name" : "Category"
-        }
-      }
-    },
     "User" : {
       "schema" : {
         "type" : "object",
@@ -776,6 +759,23 @@
         },
         "xml" : {
           "name" : "User"
+        }
+      }
+    },
+    "Category" : {
+      "schema" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        },
+        "xml" : {
+          "name" : "Category"
         }
       }
     },
