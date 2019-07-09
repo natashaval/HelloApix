@@ -250,7 +250,7 @@
           }
         }
       },
-      "_signature" : "6db21d5d-f36e-406f-a55f-d96eb63cf184"
+      "_signature" : "7f1ecd4d-ea57-4edd-9637-f88322d95e05"
     },
     "Activity" : {
       "schema" : {
@@ -261,7 +261,7 @@
           }
         }
       },
-      "_signature" : "fa6a8485-f7ce-485a-b8ce-099b73d9bf71"
+      "_signature" : "164a5011-f392-4a5c-aaf2-4992a1afa276"
     },
     "Error" : {
       "schema" : {
@@ -278,7 +278,7 @@
           }
         }
       },
-      "_signature" : "61516830-dec1-476b-8ec8-66cf9e795d74"
+      "_signature" : "aba67b77-09e7-431c-8c5f-ab2099ad7fb3"
     },
     "Product" : {
       "schema" : {
@@ -305,7 +305,7 @@
           }
         }
       },
-      "_signature" : "c091d60a-2266-494d-8757-c5067e76d88b"
+      "_signature" : "cce24540-9cd5-4cf9-a32d-f4e492ab5531"
     },
     "PriceEstimate" : {
       "schema" : {
@@ -340,7 +340,7 @@
           }
         }
       },
-      "_signature" : "afe5016e-a9d3-4754-a82f-2b71fd5dff0f"
+      "_signature" : "c7032cbd-8b41-4dd7-a277-b62b02b68bac"
     },
     "Profile" : {
       "schema" : {
@@ -367,7 +367,7 @@
           }
         }
       },
-      "_signature" : "48fa0984-5058-424e-9db7-b996c4fc5ba2"
+      "_signature" : "6e0ccd86-b31d-4731-ba21-e4723abcac57"
     }
   },
   "securityDefinitions" : { }
