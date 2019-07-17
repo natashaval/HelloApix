@@ -21,16 +21,323 @@
   },
   "schema" : null,
   "tags" : [ {
+    "name" : "pets",
+    "description" : "<p>Everything about your Pets</p>"
+  }, {
     "name" : "store",
     "description" : "Access to Petstore orders"
   }, {
     "name" : "user",
     "description" : "Operations about user"
-  }, {
-    "name" : "pet",
-    "description" : "Everything about your Pets"
   } ],
   "paths" : {
+    "/pet/findByStatus" : {
+      "get" : {
+        "summary" : "Finds Pets by status",
+        "description" : "Multiple status values can be provided with comma separated strings",
+        "operationId" : "findPetsByStatus",
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "pets" ],
+        "parameters" : [ {
+          "name" : "status",
+          "in" : "query",
+          "type" : "array",
+          "description" : "Status values that need to be considered for filter",
+          "collectionFormat" : "multi",
+          "items" : {
+            "type" : "string",
+            "enum" : [ "available", "pending", "sold" ],
+            "default" : "available"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "required" : false,
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Pet"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid status value",
+            "required" : false
+          }
+        }
+      }
+    },
+    "/pet/{petId}/uploadImage" : {
+      "post" : {
+        "summary" : "uploads an image",
+        "description" : "",
+        "operationId" : "uploadFile",
+        "consumes" : [ "multipart/form-data" ],
+        "produces" : [ "application/json" ],
+        "tags" : [ "pets" ],
+        "parameters" : [ {
+          "type" : "file",
+          "description" : "file to upload",
+          "name" : "file",
+          "in" : "formData"
+        }, {
+          "type" : "string",
+          "description" : "Additional data to pass to server",
+          "name" : "additionalMetadata",
+          "in" : "formData"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "required" : false,
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponse"
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "type" : "integer",
+        "description" : "ID of pet to update",
+        "name" : "petId",
+        "in" : "path",
+        "format" : "int64"
+      } ]
+    },
+    "/pet" : {
+      "post" : {
+        "summary" : "Add a new pet to the store",
+        "description" : "",
+        "operationId" : "addPet",
+        "consumes" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "pets" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "type" : "object",
+            "properties" : {
+              "qnumber" : {
+                "type" : "number",
+                "description" : "qnumber desc",
+                "example" : "22",
+                "format" : "double",
+                "maximum" : 3,
+                "minimum" : 2,
+                "enum" : [ "1.0", "2.0", "3.0" ],
+                "default" : 22.0
+              },
+              "qstring" : {
+                "type" : "string",
+                "description" : "qstring desc",
+                "example" : "example1",
+                "pattern" : "qweasd",
+                "maxLength" : 3,
+                "enum" : [ "string1", "string2" ],
+                "default" : "eq"
+              },
+              "qinteger" : {
+                "type" : "integer",
+                "format" : "int32"
+              },
+              "qboolean" : {
+                "type" : "boolean",
+                "example" : "true",
+                "default" : true
+              },
+              "qarray" : {
+                "type" : "array",
+                "description" : "desc1",
+                "items" : {
+                  "type" : "array",
+                  "description" : "desc2",
+                  "items" : {
+                    "type" : "array",
+                    "description" : "desc3",
+                    "items" : {
+                      "type" : "string",
+                      "description" : "strdesc",
+                      "example" : "exa1",
+                      "pattern" : "daasdad",
+                      "maxLength" : 6,
+                      "minLength" : 5,
+                      "enum" : [ "asd", "qwe" ],
+                      "default" : "default"
+                    },
+                    "example" : "5",
+                    "maxItems" : 5,
+                    "minItems" : 4
+                  },
+                  "example" : "2",
+                  "maxItems" : 4,
+                  "minItems" : 3
+                },
+                "example" : "1",
+                "maxItems" : 3,
+                "minItems" : 1
+              }
+            }
+          },
+          "description" : "Pet object that needs to be added to the store"
+        } ],
+        "responses" : {
+          "405" : {
+            "description" : "Invalid input",
+            "required" : false
+          }
+        }
+      },
+      "put" : {
+        "summary" : "Update an existing pet",
+        "description" : "",
+        "operationId" : "updatePet",
+        "consumes" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "pets" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/Pet"
+          },
+          "description" : "Pet object that needs to be added to the store"
+        } ],
+        "responses" : {
+          "400" : {
+            "description" : "Invalid ID supplied",
+            "required" : false
+          },
+          "404" : {
+            "description" : "Pet not found",
+            "required" : false
+          },
+          "405" : {
+            "description" : "Validation exception",
+            "required" : false
+          }
+        }
+      }
+    },
+    "/pet/findByTags" : {
+      "get" : {
+        "summary" : "Finds Pets by tags",
+        "description" : "Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.",
+        "operationId" : "findPetsByTags",
+        "deprecated" : true,
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "pets" ],
+        "parameters" : [ {
+          "name" : "tags",
+          "in" : "query",
+          "type" : "array",
+          "description" : "Tags to filter by",
+          "collectionFormat" : "multi",
+          "items" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "required" : false,
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Pet"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid tag value",
+            "required" : false
+          }
+        }
+      }
+    },
+    "/pet/{petId}" : {
+      "post" : {
+        "summary" : "Updates a pet in the store with form data",
+        "description" : "",
+        "operationId" : "updatePetWithForm",
+        "consumes" : [ "application/x-www-form-urlencoded" ],
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "pets" ],
+        "parameters" : [ {
+          "type" : "string",
+          "description" : "Updated name of the pet",
+          "name" : "name",
+          "in" : "formData"
+        }, {
+          "type" : "string",
+          "description" : "Updated status of the pet",
+          "name" : "status",
+          "in" : "formData"
+        } ],
+        "responses" : {
+          "405" : {
+            "description" : "Invalid input",
+            "required" : false
+          }
+        }
+      },
+      "get" : {
+        "summary" : "Find pet by ID",
+        "description" : "Returns a single pet",
+        "operationId" : "getPetById",
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "pets" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "required" : false,
+            "schema" : {
+              "$ref" : "#/definitions/Pet"
+            }
+          },
+          "400" : {
+            "description" : "Invalid ID supplied",
+            "required" : false
+          },
+          "404" : {
+            "description" : "Pet not found",
+            "required" : false
+          }
+        }
+      },
+      "delete" : {
+        "summary" : "Deletes a pet",
+        "description" : "",
+        "operationId" : "deletePet",
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "pets" ],
+        "parameters" : [ {
+          "name" : "api_key",
+          "in" : "header",
+          "type" : "string"
+        } ],
+        "responses" : {
+          "400" : {
+            "description" : "Invalid ID supplied",
+            "required" : false
+          },
+          "404" : {
+            "description" : "Pet not found",
+            "required" : false
+          }
+        }
+      },
+      "parameters" : [ {
+        "type" : "integer",
+        "description" : "ID of pet to return",
+        "name" : "petId",
+        "in" : "path",
+        "format" : "int64"
+      } ]
+    },
     "/store/inventory" : {
       "get" : {
         "summary" : "Returns pet inventories by status",
@@ -344,252 +651,6 @@
           }
         }
       }
-    },
-    "/pet/findByStatus" : {
-      "get" : {
-        "summary" : "Finds Pets by status",
-        "description" : "Multiple status values can be provided with comma separated strings",
-        "operationId" : "findPetsByStatus",
-        "produces" : [ "application/xml", "application/json" ],
-        "tags" : [ "pet" ],
-        "parameters" : [ {
-          "name" : "status",
-          "in" : "query",
-          "type" : "array",
-          "description" : "Status values that need to be considered for filter",
-          "collectionFormat" : "multi",
-          "items" : {
-            "type" : "string",
-            "enum" : [ "available", "pending", "sold" ],
-            "default" : "available"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "required" : false,
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/Pet"
-              }
-            }
-          },
-          "400" : {
-            "description" : "Invalid status value",
-            "required" : false
-          }
-        }
-      }
-    },
-    "/pet/{petId}/uploadImage" : {
-      "post" : {
-        "summary" : "uploads an image",
-        "description" : "",
-        "operationId" : "uploadFile",
-        "consumes" : [ "multipart/form-data" ],
-        "produces" : [ "application/json" ],
-        "tags" : [ "pet" ],
-        "parameters" : [ {
-          "type" : "file",
-          "description" : "file to upload",
-          "name" : "file",
-          "in" : "formData"
-        }, {
-          "type" : "string",
-          "description" : "Additional data to pass to server",
-          "name" : "additionalMetadata",
-          "in" : "formData"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "required" : false,
-            "schema" : {
-              "$ref" : "#/definitions/ApiResponse"
-            }
-          }
-        }
-      },
-      "parameters" : [ {
-        "type" : "integer",
-        "description" : "ID of pet to update",
-        "name" : "petId",
-        "in" : "path",
-        "format" : "int64"
-      } ]
-    },
-    "/pet" : {
-      "post" : {
-        "summary" : "Add a new pet to the store",
-        "description" : "",
-        "operationId" : "addPet",
-        "consumes" : [ "application/json", "application/xml" ],
-        "produces" : [ "application/xml", "application/json" ],
-        "tags" : [ "pet" ],
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "body",
-          "required" : false,
-          "schema" : {
-            "$ref" : "#/definitions/Pet"
-          },
-          "description" : "Pet object that needs to be added to the store"
-        } ],
-        "responses" : {
-          "405" : {
-            "description" : "Invalid input",
-            "required" : false
-          }
-        }
-      },
-      "put" : {
-        "summary" : "Update an existing pet",
-        "description" : "",
-        "operationId" : "updatePet",
-        "consumes" : [ "application/json", "application/xml" ],
-        "produces" : [ "application/xml", "application/json" ],
-        "tags" : [ "pet" ],
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "body",
-          "required" : false,
-          "schema" : {
-            "$ref" : "#/definitions/Pet"
-          },
-          "description" : "Pet object that needs to be added to the store"
-        } ],
-        "responses" : {
-          "400" : {
-            "description" : "Invalid ID supplied",
-            "required" : false
-          },
-          "404" : {
-            "description" : "Pet not found",
-            "required" : false
-          },
-          "405" : {
-            "description" : "Validation exception",
-            "required" : false
-          }
-        }
-      }
-    },
-    "/pet/findByTags" : {
-      "get" : {
-        "summary" : "Finds Pets by tags",
-        "description" : "Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.",
-        "operationId" : "findPetsByTags",
-        "deprecated" : true,
-        "produces" : [ "application/xml", "application/json" ],
-        "tags" : [ "pet" ],
-        "parameters" : [ {
-          "name" : "tags",
-          "in" : "query",
-          "type" : "array",
-          "description" : "Tags to filter by",
-          "collectionFormat" : "multi",
-          "items" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "required" : false,
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/Pet"
-              }
-            }
-          },
-          "400" : {
-            "description" : "Invalid tag value",
-            "required" : false
-          }
-        }
-      }
-    },
-    "/pet/{petId}" : {
-      "post" : {
-        "summary" : "Updates a pet in the store with form data",
-        "description" : "",
-        "operationId" : "updatePetWithForm",
-        "consumes" : [ "application/x-www-form-urlencoded" ],
-        "produces" : [ "application/xml", "application/json" ],
-        "tags" : [ "pet" ],
-        "parameters" : [ {
-          "type" : "string",
-          "description" : "Updated name of the pet",
-          "name" : "name",
-          "in" : "formData"
-        }, {
-          "type" : "string",
-          "description" : "Updated status of the pet",
-          "name" : "status",
-          "in" : "formData"
-        } ],
-        "responses" : {
-          "405" : {
-            "description" : "Invalid input",
-            "required" : false
-          }
-        }
-      },
-      "get" : {
-        "summary" : "Find pet by ID",
-        "description" : "Returns a single pet",
-        "operationId" : "getPetById",
-        "produces" : [ "application/xml", "application/json" ],
-        "tags" : [ "pet" ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "required" : false,
-            "schema" : {
-              "$ref" : "#/definitions/Pet"
-            }
-          },
-          "400" : {
-            "description" : "Invalid ID supplied",
-            "required" : false
-          },
-          "404" : {
-            "description" : "Pet not found",
-            "required" : false
-          }
-        }
-      },
-      "delete" : {
-        "summary" : "Deletes a pet",
-        "description" : "",
-        "operationId" : "deletePet",
-        "produces" : [ "application/xml", "application/json" ],
-        "tags" : [ "pet" ],
-        "parameters" : [ {
-          "name" : "api_key",
-          "in" : "header",
-          "type" : "string"
-        } ],
-        "responses" : {
-          "400" : {
-            "description" : "Invalid ID supplied",
-            "required" : false
-          },
-          "404" : {
-            "description" : "Pet not found",
-            "required" : false
-          }
-        }
-      },
-      "parameters" : [ {
-        "type" : "integer",
-        "description" : "ID of pet to return",
-        "name" : "petId",
-        "in" : "path",
-        "format" : "int64"
-      } ]
     }
   },
   "definitions" : {
@@ -627,7 +688,7 @@
           "name" : "Order"
         }
       },
-      "_signature" : "bd193fe9-83ad-4196-91f1-0fae8bc54c4c"
+      "_signature" : "2562dbcf-31fd-469b-b2a5-d4433ee4c428"
     },
     "Category" : {
       "schema" : {
@@ -645,7 +706,7 @@
           "name" : "Category"
         }
       },
-      "_signature" : "9424f826-1ef8-4529-bd0a-6cddf78e0b96"
+      "_signature" : "5b16f1d0-147c-4220-ba83-2ba56275fcef"
     },
     "User" : {
       "schema" : {
@@ -683,7 +744,7 @@
           "name" : "User"
         }
       },
-      "_signature" : "2ef401d8-60cf-4f05-bf43-e7fd0c62ed89"
+      "_signature" : "c13b62e5-4e2a-4c37-a3e0-75c08ec598db"
     },
     "Tag" : {
       "schema" : {
@@ -701,7 +762,7 @@
           "name" : "Tag"
         }
       },
-      "_signature" : "38675a2a-b70c-492a-896a-78cb5bcd9b6b"
+      "_signature" : "ea95923b-af2d-4245-816c-46f951db3314"
     },
     "ApiResponse" : {
       "schema" : {
@@ -719,7 +780,7 @@
           }
         }
       },
-      "_signature" : "7e661651-8ac7-4413-8b3f-dbad7ae89258"
+      "_signature" : "f96f9187-bc39-4ee5-8b5c-133b776bd464"
     },
     "Pet" : {
       "schema" : {
@@ -766,7 +827,7 @@
           "name" : "Pet"
         }
       },
-      "_signature" : "0ebb78cb-c109-4fec-abd4-7f766d7ed2a5"
+      "_signature" : "5c5055ad-94de-4d7c-b16c-4d024a9ec0e6"
     }
   },
   "securityDefinitions" : {
