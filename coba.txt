@@ -1,374 +1,649 @@
 {
   "swagger" : "2.0",
   "info" : {
-    "license" : null,
-    "contact" : null,
-    "description" : "Move your app forward with the Uber API",
-    "termsOfService" : null,
-    "title" : "Uber API",
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "contact" : {
+      "email" : "apiteam@swagger.io"
+    },
+    "description" : "This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.",
+    "termsOfService" : "http://swagger.io/terms/",
+    "title" : "Swagger Petstore",
     "version" : "1.0.0"
   },
-  "host" : "api.uber.com",
-  "basePath" : "/v1",
-  "externalDocs" : null,
+  "host" : "petstore.swagger.io",
+  "basePath" : "/v2",
+  "externalDocs" : {
+    "description" : "Find out more about Swagger",
+    "url" : "http://swagger.io"
+  },
   "schema" : null,
-  "tags" : [ { }, { }, { } ],
+  "tags" : [ {
+    "name" : "store",
+    "description" : "Access to Petstore orders"
+  }, {
+    "name" : "user",
+    "description" : "Operations about user"
+  }, {
+    "name" : "pet",
+    "description" : "Everything about your Pets"
+  } ],
   "paths" : {
-    "/products" : {
+    "/store/inventory" : {
       "get" : {
-        "summary" : "Product Types",
-        "description" : "The Products endpoint returns information about the Uber products offered at a given location. The response includes the display name and other details about each product, and lists the products in the proper display order.",
-        "produces" : null,
-        "tags" : [ "Products" ],
+        "summary" : "Returns pet inventories by status",
+        "description" : "Returns a map of status codes to quantities",
+        "operationId" : "getInventory",
+        "produces" : [ "application/json" ],
+        "tags" : [ "store" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "required" : false,
+            "schema" : {
+              "type" : "object"
+            }
+          }
+        }
+      }
+    },
+    "/store/order" : {
+      "post" : {
+        "summary" : "Place an order for a pet",
+        "description" : "",
+        "operationId" : "placeOrder",
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "store" ],
         "parameters" : [ {
-          "name" : "latitude",
-          "in" : "query",
-          "type" : "number",
-          "description" : "Latitude component of location.",
-          "format" : "double"
-        }, {
-          "name" : "longitude",
-          "in" : "query",
-          "type" : "number",
-          "description" : "Longitude component of location.",
-          "format" : "double"
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/null"
+          },
+          "description" : "order placed for purchasing the pet"
         } ],
         "responses" : {
           "200" : {
-            "description" : "An array of products",
+            "description" : "successful operation",
             "required" : false,
             "schema" : {
-              "type" : "array",
-              "items" : {
-                "type" : "object",
-                "$ref" : "#/definitions/Product"
-              }
+              "$ref" : "#/definitions/null"
             }
           },
-          "default" : {
-            "description" : "Unexpected error",
-            "required" : false,
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
+          "400" : {
+            "description" : "Invalid Order",
+            "required" : false
           }
         }
       }
     },
-    "/history" : {
+    "/store/order/{orderId}" : {
       "get" : {
-        "summary" : "User Activity",
-        "description" : "The User Activity endpoint returns data about a user's lifetime activity with Uber. The response will include pickup locations and times, dropoff locations and times, the distance of past requests, and information about which products were requested.<br><br>The history array in the response will have a maximum length based on the limit parameter. The response value count may exceed limit, therefore subsequent API requests may be necessary.",
-        "produces" : null,
-        "tags" : [ "User" ],
+        "summary" : "Find purchase order by ID",
+        "description" : "For valid response try integer IDs with value >= 1 and <= 10. Other values will generated exceptions",
+        "operationId" : "getOrderById",
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "store" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "required" : false,
+            "schema" : {
+              "$ref" : "#/definitions/null"
+            }
+          },
+          "400" : {
+            "description" : "Invalid ID supplied",
+            "required" : false
+          },
+          "404" : {
+            "description" : "Order not found",
+            "required" : false
+          }
+        }
+      },
+      "delete" : {
+        "summary" : "Delete purchase order by ID",
+        "description" : "For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors",
+        "operationId" : "deleteOrder",
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "store" ],
+        "responses" : {
+          "400" : {
+            "description" : "Invalid ID supplied",
+            "required" : false
+          },
+          "404" : {
+            "description" : "Order not found",
+            "required" : false
+          }
+        }
+      },
+      "parameters" : [ {
+        "type" : "integer",
+        "description" : "ID of pet that needs to be fetched",
+        "name" : "orderId",
+        "in" : "path",
+        "format" : "int64",
+        "maximum" : 10,
+        "minimum" : 1
+      } ]
+    },
+    "/user/createWithList" : {
+      "post" : {
+        "summary" : "Creates list of users with given input array",
+        "description" : "",
+        "operationId" : "createUsersWithListInput",
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "user" ],
         "parameters" : [ {
-          "name" : "offset",
-          "in" : "query",
-          "type" : "integer",
-          "description" : "Offset the list of returned results by this amount. Default is zero.",
-          "format" : "int32"
-        }, {
-          "name" : "limit",
-          "in" : "query",
-          "type" : "integer",
-          "description" : "Number of items to retrieve. Default is 5, maximum is 100.",
-          "format" : "int32"
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/null"
+            }
+          },
+          "description" : "List of user object"
         } ],
         "responses" : {
-          "200" : {
-            "description" : "History information for the given user",
-            "required" : false,
-            "schema" : {
-              "$ref" : "#/definitions/Activities"
-            }
-          },
           "default" : {
-            "description" : "Unexpected error",
-            "required" : false,
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
+            "description" : "successful operation",
+            "required" : false
           }
         }
       }
     },
-    "/me" : {
+    "/user/login" : {
       "get" : {
-        "summary" : "User Profile",
-        "description" : "The User Profile endpoint returns information about the Uber user that has authorized with the application.",
-        "produces" : null,
-        "tags" : [ "User" ],
-        "responses" : {
-          "200" : {
-            "description" : "Profile information for a user",
-            "required" : false,
-            "schema" : {
-              "$ref" : "#/definitions/Profile"
-            }
-          },
-          "default" : {
-            "description" : "Unexpected error",
-            "required" : false,
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-    "/estimates/price" : {
-      "get" : {
-        "summary" : "Price Estimates",
-        "description" : "The Price Estimates endpoint returns an estimated price range for each product offered at a given location. The price estimate is provided as a formatted string with the full price range and the localized currency symbol.<br><br>The response also includes low and high estimates, and the [ISO 4217](http://en.wikipedia.org/wiki/ISO_4217) currency code for situations requiring currency conversion. When surge is active for a particular product, its surge_multiplier will be greater than 1, but the price estimate already factors in this multiplier.",
-        "produces" : null,
-        "tags" : [ "Estimates" ],
+        "summary" : "Logs user into the system",
+        "description" : "",
+        "operationId" : "loginUser",
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "user" ],
         "parameters" : [ {
-          "name" : "start_longitude",
-          "in" : "query",
-          "type" : "number",
-          "description" : "Longitude component of start location.",
-          "format" : "double"
-        }, {
-          "name" : "start_latitude",
-          "in" : "query",
-          "type" : "number",
-          "description" : "Latitude component of start location.",
-          "format" : "double"
-        }, {
-          "name" : "end_longitude",
-          "in" : "query",
-          "type" : "number",
-          "description" : "Longitude component of end location.",
-          "format" : "double"
-        }, {
-          "name" : "end_latitude",
-          "in" : "query",
-          "type" : "number",
-          "description" : "Latitude component of end location.",
-          "format" : "double"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "An array of price estimates by product",
-            "required" : false,
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "type" : "object",
-                "$ref" : "#/definitions/PriceEstimate"
-              }
-            }
-          },
-          "default" : {
-            "description" : "Unexpected error",
-            "required" : false,
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-    "/estimates/time" : {
-      "get" : {
-        "summary" : "Time Estimates",
-        "description" : "The Time Estimates endpoint returns ETAs for all products offered at a given location, with the responses expressed as integers in seconds. We recommend that this endpoint be called every minute to provide the most accurate, up-to-date ETAs.",
-        "produces" : null,
-        "tags" : [ "Estimates" ],
-        "parameters" : [ {
-          "name" : "start_longitude",
-          "in" : "query",
-          "type" : "number",
-          "description" : "Longitude component of start location.",
-          "format" : "double"
-        }, {
-          "name" : "start_latitude",
-          "in" : "query",
-          "type" : "number",
-          "description" : "Latitude component of start location.",
-          "format" : "double"
-        }, {
-          "name" : "customer_uuid",
+          "name" : "password",
           "in" : "query",
           "type" : "string",
-          "description" : "Unique customer identifier to be used for experience customization.",
-          "format" : "uuid"
+          "description" : "The password for login in clear text"
         }, {
-          "name" : "product_id",
+          "name" : "username",
           "in" : "query",
           "type" : "string",
-          "description" : "Unique identifier representing a specific product for a given latitude & longitude."
+          "description" : "The user name for login"
         } ],
         "responses" : {
           "200" : {
-            "description" : "An array of products",
+            "description" : "successful operation",
+            "required" : false,
+            "headers" : {
+              "X-Rate-Limit" : {
+                "type" : "integer",
+                "description" : "calls per hour allowed by the user",
+                "format" : "int32"
+              },
+              "X-Expires-After" : {
+                "type" : "string",
+                "description" : "date in UTC when token expires",
+                "format" : "date-time"
+              }
+            },
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "400" : {
+            "description" : "Invalid username/password supplied",
+            "required" : false
+          }
+        }
+      }
+    },
+    "/user" : {
+      "post" : {
+        "summary" : "Create user",
+        "description" : "This can only be done by the logged in user.",
+        "operationId" : "createUser",
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "user" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/null"
+          },
+          "description" : "Created user object"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation",
+            "required" : false
+          }
+        }
+      }
+    },
+    "/user/createWithArray" : {
+      "post" : {
+        "summary" : "Creates list of users with given input array",
+        "description" : "",
+        "operationId" : "createUsersWithArrayInput",
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "user" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/null"
+            }
+          },
+          "description" : "List of user object"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation",
+            "required" : false
+          }
+        }
+      }
+    },
+    "/user/{username}" : {
+      "get" : {
+        "summary" : "Get user by user name",
+        "description" : "",
+        "operationId" : "getUserByName",
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "user" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "required" : false,
+            "schema" : {
+              "$ref" : "#/definitions/null"
+            }
+          },
+          "400" : {
+            "description" : "Invalid username supplied",
+            "required" : false
+          },
+          "404" : {
+            "description" : "User not found",
+            "required" : false
+          }
+        }
+      },
+      "delete" : {
+        "summary" : "Delete user",
+        "description" : "This can only be done by the logged in user.",
+        "operationId" : "deleteUser",
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "user" ],
+        "responses" : {
+          "400" : {
+            "description" : "Invalid username supplied",
+            "required" : false
+          },
+          "404" : {
+            "description" : "User not found",
+            "required" : false
+          }
+        }
+      },
+      "put" : {
+        "summary" : "Updated user",
+        "description" : "This can only be done by the logged in user.",
+        "operationId" : "updateUser",
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "user" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/null"
+          },
+          "description" : "Updated user object"
+        } ],
+        "responses" : {
+          "400" : {
+            "description" : "Invalid user supplied",
+            "required" : false
+          },
+          "404" : {
+            "description" : "User not found",
+            "required" : false
+          }
+        }
+      },
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "The name that needs to be fetched. Use user1 for testing. ",
+        "name" : "username",
+        "in" : "path"
+      } ]
+    },
+    "/user/logout" : {
+      "get" : {
+        "summary" : "Logs out current logged in user session",
+        "description" : "",
+        "operationId" : "logoutUser",
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "user" ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation",
+            "required" : false
+          }
+        }
+      }
+    },
+    "/pet/findByStatus" : {
+      "get" : {
+        "summary" : "Finds Pets by status",
+        "description" : "Multiple status values can be provided with comma separated strings",
+        "operationId" : "findPetsByStatus",
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "pet" ],
+        "parameters" : [ {
+          "name" : "status",
+          "in" : "query",
+          "type" : "array",
+          "description" : "Status values that need to be considered for filter",
+          "collectionFormat" : "multi",
+          "items" : {
+            "type" : "string",
+            "enum" : [ "available", "pending", "sold" ],
+            "default" : "available"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
             "required" : false,
             "schema" : {
               "type" : "array",
               "items" : {
-                "type" : "object",
-                "$ref" : "#/definitions/Product"
+                "$ref" : "#/definitions/null"
               }
             }
           },
-          "default" : {
-            "description" : "Unexpected error",
-            "required" : false,
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
+          "400" : {
+            "description" : "Invalid status value",
+            "required" : false
           }
         }
       }
+    },
+    "/pet/{petId}/uploadImage" : {
+      "post" : {
+        "summary" : "uploads an image",
+        "description" : "",
+        "operationId" : "uploadFile",
+        "consumes" : [ "multipart/form-data" ],
+        "produces" : [ "application/json" ],
+        "tags" : [ "pet" ],
+        "parameters" : [ {
+          "type" : "file",
+          "description" : "file to upload",
+          "name" : "file",
+          "in" : "formData"
+        }, {
+          "type" : "string",
+          "description" : "Additional data to pass to server",
+          "name" : "additionalMetadata",
+          "in" : "formData"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "required" : false,
+            "schema" : {
+              "$ref" : "#/definitions/null"
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "type" : "integer",
+        "description" : "ID of pet to update",
+        "name" : "petId",
+        "in" : "path",
+        "format" : "int64"
+      } ]
+    },
+    "/pet" : {
+      "post" : {
+        "summary" : "Add a new pet to the store",
+        "description" : "",
+        "operationId" : "addPet",
+        "consumes" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "pet" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/null"
+          },
+          "description" : "Pet object that needs to be added to the store"
+        } ],
+        "responses" : {
+          "405" : {
+            "description" : "Invalid input",
+            "required" : false
+          }
+        }
+      },
+      "put" : {
+        "summary" : "Update an existing pet",
+        "description" : "",
+        "operationId" : "updatePet",
+        "consumes" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "pet" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/null"
+          },
+          "description" : "Pet object that needs to be added to the store"
+        } ],
+        "responses" : {
+          "400" : {
+            "description" : "Invalid ID supplied",
+            "required" : false
+          },
+          "404" : {
+            "description" : "Pet not found",
+            "required" : false
+          },
+          "405" : {
+            "description" : "Validation exception",
+            "required" : false
+          }
+        }
+      }
+    },
+    "/pet/findByTags" : {
+      "get" : {
+        "summary" : "Finds Pets by tags",
+        "description" : "Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.",
+        "operationId" : "findPetsByTags",
+        "deprecated" : true,
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "pet" ],
+        "parameters" : [ {
+          "name" : "tags",
+          "in" : "query",
+          "type" : "array",
+          "description" : "Tags to filter by",
+          "collectionFormat" : "multi",
+          "items" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "required" : false,
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/null"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid tag value",
+            "required" : false
+          }
+        }
+      }
+    },
+    "/pet/{petId}" : {
+      "post" : {
+        "summary" : "Updates a pet in the store with form data",
+        "description" : "",
+        "operationId" : "updatePetWithForm",
+        "consumes" : [ "application/x-www-form-urlencoded" ],
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "pet" ],
+        "parameters" : [ {
+          "type" : "string",
+          "description" : "Updated name of the pet",
+          "name" : "name",
+          "in" : "formData"
+        }, {
+          "type" : "string",
+          "description" : "Updated status of the pet",
+          "name" : "status",
+          "in" : "formData"
+        } ],
+        "responses" : {
+          "405" : {
+            "description" : "Invalid input",
+            "required" : false
+          }
+        }
+      },
+      "get" : {
+        "summary" : "Find pet by ID",
+        "description" : "Returns a single pet",
+        "operationId" : "getPetById",
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "pet" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "required" : false,
+            "schema" : {
+              "$ref" : "#/definitions/null"
+            }
+          },
+          "400" : {
+            "description" : "Invalid ID supplied",
+            "required" : false
+          },
+          "404" : {
+            "description" : "Pet not found",
+            "required" : false
+          }
+        }
+      },
+      "delete" : {
+        "summary" : "Deletes a pet",
+        "description" : "",
+        "operationId" : "deletePet",
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "pet" ],
+        "parameters" : [ {
+          "name" : "api_key",
+          "in" : "header",
+          "type" : "string"
+        } ],
+        "responses" : {
+          "400" : {
+            "description" : "Invalid ID supplied",
+            "required" : false
+          },
+          "404" : {
+            "description" : "Pet not found",
+            "required" : false
+          }
+        }
+      },
+      "parameters" : [ {
+        "type" : "integer",
+        "description" : "ID of pet to return",
+        "name" : "petId",
+        "in" : "path",
+        "format" : "int64"
+      } ]
     }
   },
   "definitions" : {
-    "Activities" : {
+    "Order" : {
       "schema" : {
-        "properties" : {
-          "offset" : {
-            "type" : "integer",
-            "description" : "Position in pagination.",
-            "format" : "int32"
-          },
-          "limit" : {
-            "type" : "integer",
-            "description" : "Number of items to retrieve (100 max).",
-            "format" : "int32"
-          },
-          "count" : {
-            "type" : "integer",
-            "description" : "Total number of items available.",
-            "format" : "int32"
-          },
-          "history" : {
-            "type" : "array",
-            "items" : {
-              "type" : "object",
-              "$ref" : "#/definitions/Activity"
-            }
-          }
-        }
+        "properties" : { }
       },
-      "_signature" : "57eff364-858a-4ba4-9517-9c35fd719f02"
+      "_signature" : "c057bca0-d0e0-4774-8d89-4680f74b4e7e"
     },
-    "Product" : {
+    "User" : {
       "schema" : {
-        "properties" : {
-          "image" : {
-            "type" : "string",
-            "description" : "Image URL representing the product."
-          },
-          "product_id" : {
-            "type" : "string",
-            "description" : "Unique identifier representing a specific product for a given latitude & longitude. For example, uberX in San Francisco will have a different product_id than uberX in Los Angeles."
-          },
-          "description" : {
-            "type" : "string",
-            "description" : "Description of product."
-          },
-          "display_name" : {
-            "type" : "string",
-            "description" : "Display name of product."
-          },
-          "capacity" : {
-            "type" : "string",
-            "description" : "Capacity of product. For example, 4 people."
-          }
-        }
+        "properties" : { }
       },
-      "_signature" : "6c958640-b936-4183-884a-f89f0dc207ad"
+      "_signature" : "592b92e3-37b3-496f-838f-2952dbc4f538"
     },
-    "Activity" : {
+    "Category" : {
       "schema" : {
-        "properties" : {
-          "uuid" : {
-            "type" : "string",
-            "description" : "Unique identifier for the activity"
-          }
-        }
+        "properties" : { }
       },
-      "_signature" : "ee525e54-cedf-4367-9371-8c16c740c25a"
+      "_signature" : "f0551796-5586-4d95-9c58-1fe9ecfe1ba9"
     },
-    "Error" : {
+    "Tag" : {
       "schema" : {
-        "properties" : {
-          "code" : {
-            "type" : "integer",
-            "format" : "int32"
-          },
-          "message" : {
-            "type" : "string"
-          },
-          "fields" : {
-            "type" : "string"
-          }
-        }
+        "properties" : { }
       },
-      "_signature" : "0cc344ee-0e69-4bcc-8ecb-3f0a657a753a"
+      "_signature" : "cf583c65-9141-43f1-8599-5b3261432970"
     },
-    "PriceEstimate" : {
+    "ApiResponse" : {
       "schema" : {
-        "properties" : {
-          "high_estimate" : {
-            "type" : "number",
-            "description" : "Upper bound of the estimated price."
-          },
-          "product_id" : {
-            "type" : "string",
-            "description" : "Unique identifier representing a specific product for a given latitude & longitude. For example, uberX in San Francisco will have a different product_id than uberX in Los Angeles"
-          },
-          "low_estimate" : {
-            "type" : "number",
-            "description" : "Lower bound of the estimated price."
-          },
-          "surge_multiplier" : {
-            "type" : "number",
-            "description" : "Expected surge multiplier. Surge is active if surge_multiplier is greater than 1. Price estimate already factors in the surge multiplier."
-          },
-          "estimate" : {
-            "type" : "string",
-            "description" : "Formatted string of estimate in local currency of the start location. Estimate could be a range, a single number (flat rate) or \"Metered\" for TAXI."
-          },
-          "display_name" : {
-            "type" : "string",
-            "description" : "Display name of product."
-          },
-          "currency_code" : {
-            "type" : "string",
-            "description" : "[ISO 4217](http://en.wikipedia.org/wiki/ISO_4217) currency code."
-          }
-        }
+        "properties" : { }
       },
-      "_signature" : "3fea0bcb-a7b0-4eeb-b541-9d171680cf1b"
+      "_signature" : "6060ad96-3908-446d-80f7-73323fcb6545"
     },
-    "Profile" : {
+    "Pet" : {
       "schema" : {
-        "properties" : {
-          "last_name" : {
-            "type" : "string",
-            "description" : "Last name of the Uber user."
-          },
-          "promo_code" : {
-            "type" : "string",
-            "description" : "Promo code of the Uber user."
-          },
-          "first_name" : {
-            "type" : "string",
-            "description" : "First name of the Uber user."
-          },
-          "email" : {
-            "type" : "string",
-            "description" : "Email address of the Uber user"
-          },
-          "picture" : {
-            "type" : "string",
-            "description" : "Image URL of the Uber user."
-          }
-        }
+        "properties" : { }
       },
-      "_signature" : "ce03964d-37d1-4df8-8179-8ddd65a538ae"
+      "_signature" : "e3a35d67-3c66-445e-836f-8748d4a9d89a"
     }
   },
-  "securityDefinitions" : { }
+  "securityDefinitions" : {
+    "petstore_auth" : {
+      "type" : "oauth2",
+      "flow" : "implicit",
+      "authorizationUrl" : "https://petstore.swagger.io/oauth/authorize",
+      "scopes" : {
+        "write:pets" : "modify pets in your account",
+        "read:pets" : "read your pets"
+      }
+    },
+    "api_key" : {
+      "type" : "apiKey",
+      "name" : "api_key",
+      "in" : "header"
+    }
+  }
 }
