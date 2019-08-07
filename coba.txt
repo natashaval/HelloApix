@@ -1,17 +1,17 @@
 {
   "swagger" : "2.0",
   "info" : {
-    "license" : {
-      "name" : "Apache 2.0",
-      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
-    },
+    "description" : "<p>This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.</p>",
+    "version" : "1.0.0",
+    "title" : "Swagger Petstore",
+    "termsOfService" : "http://swagger.io/terms/",
     "contact" : {
       "email" : "apiteam@swagger.io"
     },
-    "description" : "This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.",
-    "termsOfService" : "http://swagger.io/terms/",
-    "title" : "Swagger Petstore",
-    "version" : "1.0.0"
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
   },
   "host" : "petstore.swagger.io",
   "basePath" : "/v2",
@@ -40,11 +40,11 @@
         "tags" : [ "store" ],
         "responses" : {
           "200" : {
-            "description" : "successful operation",
-            "required" : false,
             "schema" : {
               "type" : "object"
-            }
+            },
+            "description" : "successful operation",
+            "required" : false
           }
         }
       }
@@ -61,17 +61,17 @@
           "name" : "body",
           "required" : false,
           "schema" : {
-            "$ref" : "#/definitions/null"
+            "$ref" : "#/definitions/Order"
           },
           "description" : "order placed for purchasing the pet"
         } ],
         "responses" : {
           "200" : {
-            "description" : "successful operation",
-            "required" : false,
             "schema" : {
-              "$ref" : "#/definitions/null"
-            }
+              "$ref" : "#/definitions/Order"
+            },
+            "description" : "successful operation",
+            "required" : false
           },
           "400" : {
             "description" : "Invalid Order",
@@ -89,11 +89,11 @@
         "tags" : [ "store" ],
         "responses" : {
           "200" : {
-            "description" : "successful operation",
-            "required" : false,
             "schema" : {
-              "$ref" : "#/definitions/null"
-            }
+              "$ref" : "#/definitions/Order"
+            },
+            "description" : "successful operation",
+            "required" : false
           },
           "400" : {
             "description" : "Invalid ID supplied",
@@ -146,7 +146,7 @@
           "schema" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/definitions/null"
+              "$ref" : "#/definitions/User"
             }
           },
           "description" : "List of user object"
@@ -179,8 +179,9 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "successful operation",
-            "required" : false,
+            "schema" : {
+              "type" : "string"
+            },
             "headers" : {
               "X-Rate-Limit" : {
                 "type" : "integer",
@@ -193,9 +194,8 @@
                 "format" : "date-time"
               }
             },
-            "schema" : {
-              "type" : "string"
-            }
+            "description" : "successful operation",
+            "required" : false
           },
           "400" : {
             "description" : "Invalid username/password supplied",
@@ -216,7 +216,7 @@
           "name" : "body",
           "required" : false,
           "schema" : {
-            "$ref" : "#/definitions/null"
+            "$ref" : "#/definitions/User"
           },
           "description" : "Created user object"
         } ],
@@ -242,7 +242,7 @@
           "schema" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/definitions/null"
+              "$ref" : "#/definitions/User"
             }
           },
           "description" : "List of user object"
@@ -264,11 +264,11 @@
         "tags" : [ "user" ],
         "responses" : {
           "200" : {
-            "description" : "successful operation",
-            "required" : false,
             "schema" : {
-              "$ref" : "#/definitions/null"
-            }
+              "$ref" : "#/definitions/User"
+            },
+            "description" : "successful operation",
+            "required" : false
           },
           "400" : {
             "description" : "Invalid username supplied",
@@ -308,7 +308,7 @@
           "name" : "body",
           "required" : false,
           "schema" : {
-            "$ref" : "#/definitions/null"
+            "$ref" : "#/definitions/User"
           },
           "description" : "Updated user object"
         } ],
@@ -366,14 +366,14 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "successful operation",
-            "required" : false,
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/null"
+                "$ref" : "#/definitions/Pet"
               }
-            }
+            },
+            "description" : "successful operation",
+            "required" : false
           },
           "400" : {
             "description" : "Invalid status value",
@@ -403,11 +403,11 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "successful operation",
-            "required" : false,
             "schema" : {
-              "$ref" : "#/definitions/null"
-            }
+              "$ref" : "#/definitions/ApiResponses"
+            },
+            "description" : "successful operation",
+            "required" : false
           }
         }
       },
@@ -432,12 +432,92 @@
           "name" : "body",
           "required" : false,
           "schema" : {
-            "$ref" : "#/definitions/null"
+            "type" : "object",
+            "properties" : {
+              "qnumber" : {
+                "type" : "number",
+                "description" : "qnumber desc",
+                "example" : "22",
+                "format" : "double",
+                "maximum" : 3,
+                "minimum" : 2,
+                "enum" : [ "1.0", "2.0", "3.0" ],
+                "default" : 22.0
+              },
+              "qstring" : {
+                "type" : "string",
+                "description" : "qstring desc",
+                "example" : "example1",
+                "pattern" : "qweasd",
+                "maxLength" : 3,
+                "enum" : [ "string1", "string2" ],
+                "default" : "eq"
+              },
+              "qinteger" : {
+                "type" : "integer",
+                "format" : "int32"
+              },
+              "qboolean" : {
+                "type" : "boolean",
+                "example" : "true",
+                "default" : true
+              },
+              "qarray" : {
+                "type" : "array",
+                "description" : "desc1",
+                "items" : {
+                  "type" : "array",
+                  "description" : "desc2",
+                  "items" : {
+                    "type" : "array",
+                    "description" : "desc3",
+                    "items" : {
+                      "type" : "string",
+                      "description" : "strdesc",
+                      "example" : "exa1",
+                      "pattern" : "daasdad",
+                      "maxLength" : 6,
+                      "minLength" : 5,
+                      "enum" : [ "asd", "qwe" ],
+                      "default" : "default"
+                    },
+                    "example" : "5",
+                    "maxItems" : 5,
+                    "minItems" : 4
+                  },
+                  "example" : "2",
+                  "maxItems" : 4,
+                  "minItems" : 3
+                },
+                "example" : "1",
+                "maxItems" : 3,
+                "minItems" : 1
+              }
+            }
           },
           "description" : "Pet object that needs to be added to the store"
+        }, {
+          "name" : "orderId",
+          "in" : "query",
+          "type" : "string",
+          "description" : "",
+          "example" : "",
+          "enum" : [ ]
+        }, {
+          "name" : "content-type",
+          "in" : "header",
+          "type" : "string",
+          "description" : "",
+          "example" : "",
+          "enum" : [ ]
         } ],
         "responses" : {
           "405" : {
+            "schema" : {
+              "type" : "string",
+              "enum" : [ ]
+            },
+            "headers" : { },
             "description" : "Invalid input",
             "required" : false
           }
@@ -455,7 +535,7 @@
           "name" : "body",
           "required" : false,
           "schema" : {
-            "$ref" : "#/definitions/null"
+            "$ref" : "#/definitions/Pet"
           },
           "description" : "Pet object that needs to be added to the store"
         } ],
@@ -475,43 +555,7 @@
         }
       }
     },
-    "/pet/findByTags" : {
-      "get" : {
-        "summary" : "Finds Pets by tags",
-        "description" : "Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.",
-        "operationId" : "findPetsByTags",
-        "deprecated" : true,
-        "produces" : [ "application/xml", "application/json" ],
-        "tags" : [ "pet" ],
-        "parameters" : [ {
-          "name" : "tags",
-          "in" : "query",
-          "type" : "array",
-          "description" : "Tags to filter by",
-          "collectionFormat" : "multi",
-          "items" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "required" : false,
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/null"
-              }
-            }
-          },
-          "400" : {
-            "description" : "Invalid tag value",
-            "required" : false
-          }
-        }
-      }
-    },
-    "/pet/{petId}" : {
+    "/pet/{petId}/{ab}" : {
       "post" : {
         "summary" : "Updates a pet in the store with form data",
         "description" : "",
@@ -545,11 +589,11 @@
         "tags" : [ "pet" ],
         "responses" : {
           "200" : {
-            "description" : "successful operation",
-            "required" : false,
             "schema" : {
-              "$ref" : "#/definitions/null"
-            }
+              "$ref" : "#/definitions/Pet"
+            },
+            "description" : "successful operation",
+            "required" : false
           },
           "400" : {
             "description" : "Invalid ID supplied",
@@ -587,47 +631,237 @@
         "type" : "integer",
         "description" : "ID of pet to return",
         "name" : "petId",
-        "in" : "path",
-        "format" : "int64"
+        "format" : "int64",
+        "enum" : [ ]
+      }, {
+        "type" : "string",
+        "description" : "hai",
+        "name" : "ab",
+        "enum" : [ ]
       } ]
+    },
+    "/pet/findByTags" : {
+      "get" : {
+        "summary" : "Finds Pets by tags",
+        "description" : "Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.",
+        "operationId" : "findPetsByTags",
+        "deprecated" : true,
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "pet" ],
+        "parameters" : [ {
+          "name" : "tags",
+          "in" : "query",
+          "type" : "array",
+          "description" : "Tags to filter by",
+          "collectionFormat" : "multi",
+          "items" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Pet"
+              }
+            },
+            "description" : "successful operation",
+            "required" : false
+          },
+          "400" : {
+            "description" : "Invalid tag value",
+            "required" : false
+          }
+        }
+      }
     }
   },
   "definitions" : {
     "Order" : {
       "schema" : {
-        "properties" : { }
-      },
-      "_signature" : "c057bca0-d0e0-4774-8d89-4680f74b4e7e"
-    },
-    "User" : {
-      "schema" : {
-        "properties" : { }
-      },
-      "_signature" : "592b92e3-37b3-496f-838f-2952dbc4f538"
+        "type" : "object",
+        "properties" : {
+          "petId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "quantity" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "id" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "shipDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "complete" : {
+            "type" : "boolean",
+            "default" : false
+          },
+          "status" : {
+            "type" : "string",
+            "description" : "Order Status",
+            "enum" : [ "placed", "approved", "delivered" ]
+          }
+        },
+        "xml" : {
+          "name" : "Order"
+        }
+      }
     },
     "Category" : {
       "schema" : {
-        "properties" : { }
-      },
-      "_signature" : "f0551796-5586-4d95-9c58-1fe9ecfe1ba9"
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        },
+        "xml" : {
+          "name" : "Category"
+        }
+      }
+    },
+    "User" : {
+      "schema" : {
+        "type" : "object",
+        "properties" : {
+          "firstName" : {
+            "type" : "string"
+          },
+          "lastName" : {
+            "type" : "string"
+          },
+          "password" : {
+            "type" : "string"
+          },
+          "userStatus" : {
+            "type" : "integer",
+            "description" : "User Status",
+            "format" : "int32"
+          },
+          "phone" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "username" : {
+            "type" : "string"
+          }
+        },
+        "xml" : {
+          "name" : "User"
+        }
+      }
     },
     "Tag" : {
       "schema" : {
-        "properties" : { }
-      },
-      "_signature" : "cf583c65-9141-43f1-8599-5b3261432970"
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        },
+        "xml" : {
+          "name" : "Tag"
+        }
+      }
     },
-    "ApiResponse" : {
+    "berinama" : {
       "schema" : {
-        "properties" : { }
+        "type" : "object",
+        "name" : "string1",
+        "properties" : {
+          "tes" : {
+            "type" : "string",
+            "description" : "",
+            "name" : "tes",
+            "example" : "",
+            "enum" : [ ]
+          }
+        }
       },
-      "_signature" : "6060ad96-3908-446d-80f7-73323fcb6545"
+      "description" : ""
     },
     "Pet" : {
       "schema" : {
-        "properties" : { }
-      },
-      "_signature" : "e3a35d67-3c66-445e-836f-8748d4a9d89a"
+        "type" : "object",
+        "properties" : {
+          "photoUrls" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            },
+            "xml" : {
+              "name" : "photoUrl",
+              "wrapped" : true
+            }
+          },
+          "name" : {
+            "type" : "string",
+            "example" : "doggie"
+          },
+          "id" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "category" : {
+            "$ref" : "#/definitions/Category"
+          },
+          "tags" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/Tag"
+            },
+            "xml" : {
+              "name" : "tag",
+              "wrapped" : true
+            }
+          },
+          "status" : {
+            "type" : "string",
+            "description" : "pet status in the store",
+            "enum" : [ "available", "pending", "sold" ]
+          }
+        },
+        "xml" : {
+          "name" : "Pet"
+        }
+      }
+    },
+    "ApiResponses" : {
+      "schema" : {
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "name" : "code",
+            "$ref" : "#/definitions/Order"
+          },
+          "type" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
+          }
+        }
+      }
     }
   },
   "securityDefinitions" : {
