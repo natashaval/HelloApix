@@ -1,41 +1,59 @@
 {
-  "schema" : [ "https", "http" ],
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.",
+    "version" : "1.0.0",
+    "title" : "Swagger Petstore",
+    "termsOfService" : "http://swagger.io/terms/",
+    "contact" : {
+      "email" : "apiteam@swagger.io"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host" : "petstore.swagger.io",
   "basePath" : "/v2",
+  "externalDocs" : {
+    "description" : "Find out more about Swagger",
+    "url" : "http://swagger.io"
+  },
+  "schema" : null,
+  "tags" : [ {
+    "name" : "store",
+    "description" : "Access to Petstore orders"
+  }, {
+    "name" : "user",
+    "description" : "Operations about user"
+  }, {
+    "name" : "pet",
+    "description" : "Everything about your Pets"
+  } ],
   "paths" : {
     "/store/inventory" : {
       "get" : {
         "summary" : "Returns pet inventories by status",
         "description" : "Returns a map of status codes to quantities",
         "operationId" : "getInventory",
-        "deprecated" : null,
-        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "tags" : [ "store" ],
-        "parameters" : [ ],
         "responses" : {
           "200" : {
-            "in" : "",
-            "description" : "successful operation",
-            "required" : false,
             "schema" : {
-              "type" : "object",
-              "additionalProperties" : {
-                "type" : "integer",
-                "format" : "int32"
-              }
-            }
+              "type" : "object"
+            },
+            "description" : "successful operation",
+            "required" : false
           }
         }
-      },
-      "parameters" : [ ]
+      }
     },
     "/store/order" : {
       "post" : {
         "summary" : "Place an order for a pet",
         "description" : "",
         "operationId" : "placeOrder",
-        "deprecated" : null,
-        "consumes" : [ "application/json" ],
         "produces" : [ "application/xml", "application/json" ],
         "tags" : [ "store" ],
         "parameters" : [ {
@@ -45,53 +63,43 @@
           "schema" : {
             "$ref" : "#/definitions/Order"
           },
-          "type" : null,
-          "description" : null
+          "description" : "order placed for purchasing the pet"
         } ],
         "responses" : {
           "200" : {
-            "in" : "",
-            "description" : "successful operation",
-            "required" : false,
             "schema" : {
               "$ref" : "#/definitions/Order"
-            }
+            },
+            "description" : "successful operation",
+            "required" : false
           },
           "400" : {
-            "in" : "",
             "description" : "Invalid Order",
             "required" : false
           }
         }
-      },
-      "parameters" : [ ]
+      }
     },
     "/store/order/{orderId}" : {
       "get" : {
         "summary" : "Find purchase order by ID",
         "description" : "For valid response try integer IDs with value >= 1 and <= 10. Other values will generated exceptions",
         "operationId" : "getOrderById",
-        "deprecated" : null,
-        "consumes" : [ "application/json" ],
         "produces" : [ "application/xml", "application/json" ],
         "tags" : [ "store" ],
-        "parameters" : [ ],
         "responses" : {
           "200" : {
-            "in" : "",
-            "description" : "successful operation",
-            "required" : false,
             "schema" : {
               "$ref" : "#/definitions/Order"
-            }
+            },
+            "description" : "successful operation",
+            "required" : false
           },
           "400" : {
-            "in" : "",
             "description" : "Invalid ID supplied",
             "required" : false
           },
           "404" : {
-            "in" : "",
             "description" : "Order not found",
             "required" : false
           }
@@ -101,19 +109,14 @@
         "summary" : "Delete purchase order by ID",
         "description" : "For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors",
         "operationId" : "deleteOrder",
-        "deprecated" : null,
-        "consumes" : [ "application/json" ],
         "produces" : [ "application/xml", "application/json" ],
         "tags" : [ "store" ],
-        "parameters" : [ ],
         "responses" : {
           "400" : {
-            "in" : "",
             "description" : "Invalid ID supplied",
             "required" : false
           },
           "404" : {
-            "in" : "",
             "description" : "Order not found",
             "required" : false
           }
@@ -134,8 +137,6 @@
         "summary" : "Creates list of users with given input array",
         "description" : "",
         "operationId" : "createUsersWithListInput",
-        "deprecated" : null,
-        "consumes" : [ "application/json" ],
         "produces" : [ "application/xml", "application/json" ],
         "tags" : [ "user" ],
         "parameters" : [ {
@@ -148,26 +149,21 @@
               "$ref" : "#/definitions/User"
             }
           },
-          "type" : null,
-          "description" : null
+          "description" : "List of user object"
         } ],
         "responses" : {
           "default" : {
-            "in" : "",
             "description" : "successful operation",
             "required" : false
           }
         }
-      },
-      "parameters" : [ ]
+      }
     },
     "/user/login" : {
       "get" : {
         "summary" : "Logs user into the system",
         "description" : "",
         "operationId" : "loginUser",
-        "deprecated" : null,
-        "consumes" : [ "application/json" ],
         "produces" : [ "application/xml", "application/json" ],
         "tags" : [ "user" ],
         "parameters" : [ {
@@ -183,9 +179,9 @@
         } ],
         "responses" : {
           "200" : {
-            "in" : "",
-            "description" : "successful operation",
-            "required" : false,
+            "schema" : {
+              "type" : "string"
+            },
             "headers" : {
               "X-Rate-Limit" : {
                 "type" : "integer",
@@ -198,26 +194,21 @@
                 "format" : "date-time"
               }
             },
-            "schema" : {
-              "type" : "string"
-            }
+            "description" : "successful operation",
+            "required" : false
           },
           "400" : {
-            "in" : "",
             "description" : "Invalid username/password supplied",
             "required" : false
           }
         }
-      },
-      "parameters" : [ ]
+      }
     },
     "/user" : {
       "post" : {
         "summary" : "Create user",
         "description" : "This can only be done by the logged in user.",
         "operationId" : "createUser",
-        "deprecated" : null,
-        "consumes" : [ "application/json" ],
         "produces" : [ "application/xml", "application/json" ],
         "tags" : [ "user" ],
         "parameters" : [ {
@@ -227,26 +218,21 @@
           "schema" : {
             "$ref" : "#/definitions/User"
           },
-          "type" : null,
-          "description" : null
+          "description" : "Created user object"
         } ],
         "responses" : {
           "default" : {
-            "in" : "",
             "description" : "successful operation",
             "required" : false
           }
         }
-      },
-      "parameters" : [ ]
+      }
     },
     "/user/createWithArray" : {
       "post" : {
         "summary" : "Creates list of users with given input array",
         "description" : "",
         "operationId" : "createUsersWithArrayInput",
-        "deprecated" : null,
-        "consumes" : [ "application/json" ],
         "produces" : [ "application/xml", "application/json" ],
         "tags" : [ "user" ],
         "parameters" : [ {
@@ -259,45 +245,36 @@
               "$ref" : "#/definitions/User"
             }
           },
-          "type" : null,
-          "description" : null
+          "description" : "List of user object"
         } ],
         "responses" : {
           "default" : {
-            "in" : "",
             "description" : "successful operation",
             "required" : false
           }
         }
-      },
-      "parameters" : [ ]
+      }
     },
     "/user/{username}" : {
       "get" : {
         "summary" : "Get user by user name",
         "description" : "",
         "operationId" : "getUserByName",
-        "deprecated" : null,
-        "consumes" : [ "application/json" ],
         "produces" : [ "application/xml", "application/json" ],
         "tags" : [ "user" ],
-        "parameters" : [ ],
         "responses" : {
           "200" : {
-            "in" : "",
-            "description" : "successful operation",
-            "required" : false,
             "schema" : {
               "$ref" : "#/definitions/User"
-            }
+            },
+            "description" : "successful operation",
+            "required" : false
           },
           "400" : {
-            "in" : "",
             "description" : "Invalid username supplied",
             "required" : false
           },
           "404" : {
-            "in" : "",
             "description" : "User not found",
             "required" : false
           }
@@ -307,19 +284,14 @@
         "summary" : "Delete user",
         "description" : "This can only be done by the logged in user.",
         "operationId" : "deleteUser",
-        "deprecated" : null,
-        "consumes" : [ "application/json" ],
         "produces" : [ "application/xml", "application/json" ],
         "tags" : [ "user" ],
-        "parameters" : [ ],
         "responses" : {
           "400" : {
-            "in" : "",
             "description" : "Invalid username supplied",
             "required" : false
           },
           "404" : {
-            "in" : "",
             "description" : "User not found",
             "required" : false
           }
@@ -329,8 +301,6 @@
         "summary" : "Updated user",
         "description" : "This can only be done by the logged in user.",
         "operationId" : "updateUser",
-        "deprecated" : null,
-        "consumes" : [ "application/json" ],
         "produces" : [ "application/xml", "application/json" ],
         "tags" : [ "user" ],
         "parameters" : [ {
@@ -340,17 +310,14 @@
           "schema" : {
             "$ref" : "#/definitions/User"
           },
-          "type" : null,
-          "description" : null
+          "description" : "Updated user object"
         } ],
         "responses" : {
           "400" : {
-            "in" : "",
             "description" : "Invalid user supplied",
             "required" : false
           },
           "404" : {
-            "in" : "",
             "description" : "User not found",
             "required" : false
           }
@@ -368,28 +335,21 @@
         "summary" : "Logs out current logged in user session",
         "description" : "",
         "operationId" : "logoutUser",
-        "deprecated" : null,
-        "consumes" : [ "application/json" ],
         "produces" : [ "application/xml", "application/json" ],
         "tags" : [ "user" ],
-        "parameters" : [ ],
         "responses" : {
           "default" : {
-            "in" : "",
             "description" : "successful operation",
             "required" : false
           }
         }
-      },
-      "parameters" : [ ]
+      }
     },
     "/pet/findByStatus" : {
       "get" : {
         "summary" : "Finds Pets by status",
         "description" : "Multiple status values can be provided with comma separated strings",
         "operationId" : "findPetsByStatus",
-        "deprecated" : null,
-        "consumes" : [ "application/json" ],
         "produces" : [ "application/xml", "application/json" ],
         "tags" : [ "pet" ],
         "parameters" : [ {
@@ -406,66 +366,48 @@
         } ],
         "responses" : {
           "200" : {
-            "in" : "",
-            "description" : "successful operation",
-            "required" : false,
             "schema" : {
               "type" : "array",
               "items" : {
                 "$ref" : "#/definitions/Pet"
               }
-            }
+            },
+            "description" : "successful operation",
+            "required" : false
           },
           "400" : {
-            "in" : "",
             "description" : "Invalid status value",
             "required" : false
           }
         }
-      },
-      "parameters" : [ ]
+      }
     },
     "/pet/{petId}/uploadImage" : {
       "post" : {
         "summary" : "uploads an image",
         "description" : "",
         "operationId" : "uploadFile",
-        "deprecated" : null,
         "consumes" : [ "multipart/form-data" ],
         "produces" : [ "application/json" ],
         "tags" : [ "pet" ],
         "parameters" : [ {
-          "in" : "formData",
-          "name" : "formData",
-          "required" : false,
-          "schema" : {
-            "type" : "object",
-            "properties" : {
-              "file" : {
-                "type" : "file",
-                "description" : "file to upload",
-                "name" : "file",
-                "in" : "formData"
-              },
-              "additionalMetadata" : {
-                "type" : "string",
-                "description" : "Additional data to pass to server",
-                "name" : "additionalMetadata",
-                "in" : "formData"
-              }
-            }
-          },
-          "type" : null,
-          "description" : null
+          "type" : "file",
+          "description" : "file to upload",
+          "name" : "file",
+          "in" : "formData"
+        }, {
+          "type" : "string",
+          "description" : "Additional data to pass to server",
+          "name" : "additionalMetadata",
+          "in" : "formData"
         } ],
         "responses" : {
           "200" : {
-            "in" : "",
-            "description" : "successful operation",
-            "required" : false,
             "schema" : {
               "$ref" : "#/definitions/ApiResponse"
-            }
+            },
+            "description" : "successful operation",
+            "required" : false
           }
         }
       },
@@ -482,7 +424,6 @@
         "summary" : "Add a new pet to the store",
         "description" : "",
         "operationId" : "addPet",
-        "deprecated" : null,
         "consumes" : [ "application/json", "application/xml" ],
         "produces" : [ "application/xml", "application/json" ],
         "tags" : [ "pet" ],
@@ -493,12 +434,10 @@
           "schema" : {
             "$ref" : "#/definitions/Pet"
           },
-          "type" : null,
-          "description" : null
+          "description" : "Pet object that needs to be added to the store"
         } ],
         "responses" : {
           "405" : {
-            "in" : "",
             "description" : "Invalid input",
             "required" : false
           }
@@ -508,7 +447,6 @@
         "summary" : "Update an existing pet",
         "description" : "",
         "operationId" : "updatePet",
-        "deprecated" : null,
         "consumes" : [ "application/json", "application/xml" ],
         "produces" : [ "application/xml", "application/json" ],
         "tags" : [ "pet" ],
@@ -519,28 +457,23 @@
           "schema" : {
             "$ref" : "#/definitions/Pet"
           },
-          "type" : null,
-          "description" : null
+          "description" : "Pet object that needs to be added to the store"
         } ],
         "responses" : {
           "400" : {
-            "in" : "",
             "description" : "Invalid ID supplied",
             "required" : false
           },
           "404" : {
-            "in" : "",
             "description" : "Pet not found",
             "required" : false
           },
           "405" : {
-            "in" : "",
             "description" : "Validation exception",
             "required" : false
           }
         }
-      },
-      "parameters" : [ ]
+      }
     },
     "/pet/findByTags" : {
       "get" : {
@@ -548,7 +481,6 @@
         "description" : "Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.",
         "operationId" : "findPetsByTags",
         "deprecated" : true,
-        "consumes" : [ "application/json" ],
         "produces" : [ "application/xml", "application/json" ],
         "tags" : [ "pet" ],
         "parameters" : [ {
@@ -563,61 +495,43 @@
         } ],
         "responses" : {
           "200" : {
-            "in" : "",
-            "description" : "successful operation",
-            "required" : false,
             "schema" : {
               "type" : "array",
               "items" : {
                 "$ref" : "#/definitions/Pet"
               }
-            }
+            },
+            "description" : "successful operation",
+            "required" : false
           },
           "400" : {
-            "in" : "",
             "description" : "Invalid tag value",
             "required" : false
           }
         }
-      },
-      "parameters" : [ ]
+      }
     },
     "/pet/{petId}" : {
       "post" : {
         "summary" : "Updates a pet in the store with form data",
         "description" : "",
         "operationId" : "updatePetWithForm",
-        "deprecated" : null,
         "consumes" : [ "application/x-www-form-urlencoded" ],
         "produces" : [ "application/xml", "application/json" ],
         "tags" : [ "pet" ],
         "parameters" : [ {
-          "in" : "formData",
-          "name" : "formData",
-          "required" : false,
-          "schema" : {
-            "type" : "object",
-            "properties" : {
-              "name" : {
-                "type" : "string",
-                "description" : "Updated name of the pet",
-                "name" : "name",
-                "in" : "formData"
-              },
-              "status" : {
-                "type" : "string",
-                "description" : "Updated status of the pet",
-                "name" : "status",
-                "in" : "formData"
-              }
-            }
-          },
-          "type" : null,
-          "description" : null
+          "type" : "string",
+          "description" : "Updated name of the pet",
+          "name" : "name",
+          "in" : "formData"
+        }, {
+          "type" : "string",
+          "description" : "Updated status of the pet",
+          "name" : "status",
+          "in" : "formData"
         } ],
         "responses" : {
           "405" : {
-            "in" : "",
             "description" : "Invalid input",
             "required" : false
           }
@@ -627,27 +541,21 @@
         "summary" : "Find pet by ID",
         "description" : "Returns a single pet",
         "operationId" : "getPetById",
-        "deprecated" : null,
-        "consumes" : [ "application/json" ],
         "produces" : [ "application/xml", "application/json" ],
         "tags" : [ "pet" ],
-        "parameters" : [ ],
         "responses" : {
           "200" : {
-            "in" : "",
-            "description" : "successful operation",
-            "required" : false,
             "schema" : {
               "$ref" : "#/definitions/Pet"
-            }
+            },
+            "description" : "successful operation",
+            "required" : false
           },
           "400" : {
-            "in" : "",
             "description" : "Invalid ID supplied",
             "required" : false
           },
           "404" : {
-            "in" : "",
             "description" : "Pet not found",
             "required" : false
           }
@@ -657,8 +565,6 @@
         "summary" : "Deletes a pet",
         "description" : "",
         "operationId" : "deletePet",
-        "deprecated" : null,
-        "consumes" : [ "application/json" ],
         "produces" : [ "application/xml", "application/json" ],
         "tags" : [ "pet" ],
         "parameters" : [ {
@@ -668,12 +574,10 @@
         } ],
         "responses" : {
           "400" : {
-            "in" : "",
             "description" : "Invalid ID supplied",
             "required" : false
           },
           "404" : {
-            "in" : "",
             "description" : "Pet not found",
             "required" : false
           }
@@ -688,7 +592,6 @@
       } ]
     }
   },
-  "host" : "petstore.swagger.io",
   "definitions" : {
     "Order" : {
       "schema" : {
@@ -796,23 +699,6 @@
         }
       }
     },
-    "ApiResponse" : {
-      "schema" : {
-        "type" : "object",
-        "properties" : {
-          "code" : {
-            "type" : "integer",
-            "format" : "int32"
-          },
-          "type" : {
-            "type" : "string"
-          },
-          "message" : {
-            "type" : "string"
-          }
-        }
-      }
-    },
     "Pet" : {
       "schema" : {
         "type" : "object",
@@ -858,6 +744,23 @@
           "name" : "Pet"
         }
       }
+    },
+    "ApiResponse" : {
+      "schema" : {
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "type" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
+          }
+        }
+      }
     }
   },
   "securityDefinitions" : {
@@ -873,27 +776,7 @@
     "api_key" : {
       "type" : "apiKey",
       "name" : "api_key",
-      "in" : "header",
-      "scopes" : { }
+      "in" : "header"
     }
-  },
-  "swagger" : "2.0",
-  "info" : {
-    "license" : {
-      "name" : "Apache 2.0",
-      "description" : null,
-      "email" : null,
-      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
-    },
-    "contact" : {
-      "name" : null,
-      "description" : null,
-      "email" : "apiteam@swagger.io",
-      "url" : null
-    },
-    "description" : "This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.",
-    "termsOfService" : "http://swagger.io/terms/",
-    "title" : "Swagger Petstore",
-    "version" : "1.0.0"
   }
 }
