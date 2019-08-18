@@ -27,6 +27,9 @@
     "name" : "user",
     "description" : "Operations about user"
   }, {
+    "name" : "sha",
+    "description" : ""
+  }, {
     "name" : "pet",
     "description" : "Everything about your Pets"
   } ],
