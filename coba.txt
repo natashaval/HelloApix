@@ -1,7 +1,7 @@
 {
   "swagger" : "2.0",
   "info" : {
-    "description" : "<p>This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.</p>",
+    "description" : "This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.",
     "version" : "1.0.0",
     "title" : "Swagger Petstore",
     "termsOfService" : "http://swagger.io/terms/",
@@ -404,7 +404,7 @@
         "responses" : {
           "200" : {
             "schema" : {
-              "$ref" : "#/definitions/ApiResponses"
+              "$ref" : "#/definitions/ApiResponse"
             },
             "description" : "successful operation",
             "required" : false
@@ -432,92 +432,12 @@
           "name" : "body",
           "required" : false,
           "schema" : {
-            "type" : "object",
-            "properties" : {
-              "qnumber" : {
-                "type" : "number",
-                "description" : "qnumber desc",
-                "example" : "22",
-                "format" : "double",
-                "maximum" : 3,
-                "minimum" : 2,
-                "enum" : [ "1.0", "2.0", "3.0" ],
-                "default" : 22.0
-              },
-              "qstring" : {
-                "type" : "string",
-                "description" : "qstring desc",
-                "example" : "example1",
-                "pattern" : "qweasd",
-                "maxLength" : 3,
-                "enum" : [ "string1", "string2" ],
-                "default" : "eq"
-              },
-              "qinteger" : {
-                "type" : "integer",
-                "format" : "int32"
-              },
-              "qboolean" : {
-                "type" : "boolean",
-                "example" : "true",
-                "default" : true
-              },
-              "qarray" : {
-                "type" : "array",
-                "description" : "desc1",
-                "items" : {
-                  "type" : "array",
-                  "description" : "desc2",
-                  "items" : {
-                    "type" : "array",
-                    "description" : "desc3",
-                    "items" : {
-                      "type" : "string",
-                      "description" : "strdesc",
-                      "example" : "exa1",
-                      "pattern" : "daasdad",
-                      "maxLength" : 6,
-                      "minLength" : 5,
-                      "enum" : [ "asd", "qwe" ],
-                      "default" : "default"
-                    },
-                    "example" : "5",
-                    "maxItems" : 5,
-                    "minItems" : 4
-                  },
-                  "example" : "2",
-                  "maxItems" : 4,
-                  "minItems" : 3
-                },
-                "example" : "1",
-                "maxItems" : 3,
-                "minItems" : 1
-              }
-            }
+            "$ref" : "#/definitions/Pet"
           },
           "description" : "Pet object that needs to be added to the store"
-        }, {
-          "name" : "orderId",
-          "in" : "query",
-          "type" : "string",
-          "description" : "",
-          "example" : "",
-          "enum" : [ ]
-        }, {
-          "name" : "content-type",
-          "in" : "header",
-          "type" : "string",
-          "description" : "",
-          "example" : "",
-          "enum" : [ ]
         } ],
         "responses" : {
           "405" : {
-            "schema" : {
-              "type" : "string",
-              "enum" : [ ]
-            },
-            "headers" : { },
             "description" : "Invalid input",
             "required" : false
           }
@@ -555,7 +475,43 @@
         }
       }
     },
-    "/pet/{petId}/{ab}" : {
+    "/pet/findByTags" : {
+      "get" : {
+        "summary" : "Finds Pets by tags",
+        "description" : "Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.",
+        "operationId" : "findPetsByTags",
+        "deprecated" : true,
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "pet" ],
+        "parameters" : [ {
+          "name" : "tags",
+          "in" : "query",
+          "type" : "array",
+          "description" : "Tags to filter by",
+          "collectionFormat" : "multi",
+          "items" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Pet"
+              }
+            },
+            "description" : "successful operation",
+            "required" : false
+          },
+          "400" : {
+            "description" : "Invalid tag value",
+            "required" : false
+          }
+        }
+      }
+    },
+    "/pet/{petId}" : {
       "post" : {
         "summary" : "Updates a pet in the store with form data",
         "description" : "",
@@ -631,50 +587,9 @@
         "type" : "integer",
         "description" : "ID of pet to return",
         "name" : "petId",
-        "format" : "int64",
-        "enum" : [ ]
-      }, {
-        "type" : "string",
-        "description" : "hai",
-        "name" : "ab",
-        "enum" : [ ]
+        "in" : "path",
+        "format" : "int64"
       } ]
-    },
-    "/pet/findByTags" : {
-      "get" : {
-        "summary" : "Finds Pets by tags",
-        "description" : "Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.",
-        "operationId" : "findPetsByTags",
-        "deprecated" : true,
-        "produces" : [ "application/xml", "application/json" ],
-        "tags" : [ "pet" ],
-        "parameters" : [ {
-          "name" : "tags",
-          "in" : "query",
-          "type" : "array",
-          "description" : "Tags to filter by",
-          "collectionFormat" : "multi",
-          "items" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/Pet"
-              }
-            },
-            "description" : "successful operation",
-            "required" : false
-          },
-          "400" : {
-            "description" : "Invalid tag value",
-            "required" : false
-          }
-        }
-      }
     }
   },
   "definitions" : {
@@ -784,21 +699,22 @@
         }
       }
     },
-    "berinama" : {
+    "ApiResponse" : {
       "schema" : {
         "type" : "object",
-        "name" : "string1",
         "properties" : {
-          "tes" : {
-            "type" : "string",
-            "description" : "",
-            "name" : "tes",
-            "example" : "",
-            "enum" : [ ]
+          "code" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "type" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
           }
         }
-      },
-      "description" : ""
+      }
     },
     "Pet" : {
       "schema" : {
@@ -843,23 +759,6 @@
         },
         "xml" : {
           "name" : "Pet"
-        }
-      }
-    },
-    "ApiResponses" : {
-      "schema" : {
-        "type" : "object",
-        "properties" : {
-          "code" : {
-            "name" : "code",
-            "$ref" : "#/definitions/Order"
-          },
-          "type" : {
-            "type" : "string"
-          },
-          "message" : {
-            "type" : "string"
-          }
         }
       }
     }
