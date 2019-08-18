@@ -27,9 +27,6 @@
     "name" : "user",
     "description" : "Operations about user"
   }, {
-    "name" : "sha",
-    "description" : ""
-  }, {
     "name" : "pet",
     "description" : "Everything about your Pets"
   } ],
@@ -64,14 +61,14 @@
           "name" : "body",
           "required" : false,
           "schema" : {
-            "$ref" : "#/definitions/Order"
+            "$ref" : "#/definitions/null"
           },
           "description" : "order placed for purchasing the pet"
         } ],
         "responses" : {
           "200" : {
             "schema" : {
-              "$ref" : "#/definitions/Order"
+              "$ref" : "#/definitions/null"
             },
             "description" : "successful operation",
             "required" : false
@@ -93,7 +90,7 @@
         "responses" : {
           "200" : {
             "schema" : {
-              "$ref" : "#/definitions/Order"
+              "$ref" : "#/definitions/null"
             },
             "description" : "successful operation",
             "required" : false
@@ -149,7 +146,7 @@
           "schema" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/definitions/User"
+              "$ref" : "#/definitions/null"
             }
           },
           "description" : "List of user object"
@@ -219,7 +216,7 @@
           "name" : "body",
           "required" : false,
           "schema" : {
-            "$ref" : "#/definitions/User"
+            "$ref" : "#/definitions/null"
           },
           "description" : "Created user object"
         } ],
@@ -245,7 +242,7 @@
           "schema" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/definitions/User"
+              "$ref" : "#/definitions/null"
             }
           },
           "description" : "List of user object"
@@ -268,7 +265,7 @@
         "responses" : {
           "200" : {
             "schema" : {
-              "$ref" : "#/definitions/User"
+              "$ref" : "#/definitions/null"
             },
             "description" : "successful operation",
             "required" : false
@@ -311,7 +308,7 @@
           "name" : "body",
           "required" : false,
           "schema" : {
-            "$ref" : "#/definitions/User"
+            "$ref" : "#/definitions/null"
           },
           "description" : "Updated user object"
         } ],
@@ -372,7 +369,7 @@
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/Pet"
+                "$ref" : "#/definitions/null"
               }
             },
             "description" : "successful operation",
@@ -407,7 +404,7 @@
         "responses" : {
           "200" : {
             "schema" : {
-              "$ref" : "#/definitions/ApiResponse"
+              "$ref" : "#/definitions/null"
             },
             "description" : "successful operation",
             "required" : false
@@ -435,7 +432,7 @@
           "name" : "body",
           "required" : false,
           "schema" : {
-            "$ref" : "#/definitions/Pet"
+            "$ref" : "#/definitions/null"
           },
           "description" : "Pet object that needs to be added to the store"
         } ],
@@ -458,7 +455,7 @@
           "name" : "body",
           "required" : false,
           "schema" : {
-            "$ref" : "#/definitions/Pet"
+            "$ref" : "#/definitions/null"
           },
           "description" : "Pet object that needs to be added to the store"
         } ],
@@ -501,7 +498,7 @@
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/Pet"
+                "$ref" : "#/definitions/null"
               }
             },
             "description" : "successful operation",
@@ -549,7 +546,7 @@
         "responses" : {
           "200" : {
             "schema" : {
-              "$ref" : "#/definitions/Pet"
+              "$ref" : "#/definitions/null"
             },
             "description" : "successful operation",
             "required" : false
@@ -631,23 +628,6 @@
         }
       }
     },
-    "Category" : {
-      "schema" : {
-        "type" : "object",
-        "properties" : {
-          "name" : {
-            "type" : "string"
-          },
-          "id" : {
-            "type" : "integer",
-            "format" : "int64"
-          }
-        },
-        "xml" : {
-          "name" : "Category"
-        }
-      }
-    },
     "User" : {
       "schema" : {
         "type" : "object",
@@ -682,6 +662,23 @@
         },
         "xml" : {
           "name" : "User"
+        }
+      }
+    },
+    "Category" : {
+      "schema" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        },
+        "xml" : {
+          "name" : "Category"
         }
       }
     },
@@ -742,12 +739,12 @@
             "format" : "int64"
           },
           "category" : {
-            "$ref" : "#/definitions/Category"
+            "$ref" : "#/definitions/null"
           },
           "tags" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/definitions/Tag"
+              "$ref" : "#/definitions/null"
             },
             "xml" : {
               "name" : "tag",
