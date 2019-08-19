@@ -1,7 +1,7 @@
 {
   "swagger" : "2.0",
   "info" : {
-    "description" : "This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.",
+    "description" : "<p>This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.</p>",
     "version" : "1.0.0",
     "title" : "Swagger Petstore",
     "termsOfService" : "http://swagger.io/terms/",
@@ -24,13 +24,34 @@
     "name" : "store",
     "description" : "Access to Petstore orders"
   }, {
-    "name" : "user",
-    "description" : "Operations about user"
-  }, {
     "name" : "pet",
-    "description" : "Everything about your Pets"
+    "description" : "<p>Everything about your Pets</p>"
+  }, {
+    "name" : "users",
+    "description" : "<p>Operations about user</p>"
   } ],
   "paths" : {
+    "/store/inventory/haah" : {
+      "put" : {
+        "summary" : "iyes",
+        "description" : "",
+        "operationId" : "",
+        "consumes" : [ ],
+        "produces" : [ ],
+        "tags" : [ "store" ],
+        "responses" : {
+          "200" : {
+            "schema" : {
+              "type" : "string",
+              "enum" : [ ]
+            },
+            "headers" : { },
+            "description" : "",
+            "required" : false
+          }
+        }
+      }
+    },
     "/store/inventory" : {
       "get" : {
         "summary" : "Returns pet inventories by status",
@@ -132,219 +153,6 @@
         "minimum" : 1
       } ]
     },
-    "/user/createWithList" : {
-      "post" : {
-        "summary" : "Creates list of users with given input array",
-        "description" : "",
-        "operationId" : "createUsersWithListInput",
-        "produces" : [ "application/xml", "application/json" ],
-        "tags" : [ "user" ],
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "body",
-          "required" : false,
-          "schema" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/definitions/User"
-            }
-          },
-          "description" : "List of user object"
-        } ],
-        "responses" : {
-          "default" : {
-            "description" : "successful operation",
-            "required" : false
-          }
-        }
-      }
-    },
-    "/user/login" : {
-      "get" : {
-        "summary" : "Logs user into the system",
-        "description" : "",
-        "operationId" : "loginUser",
-        "produces" : [ "application/xml", "application/json" ],
-        "tags" : [ "user" ],
-        "parameters" : [ {
-          "name" : "password",
-          "in" : "query",
-          "type" : "string",
-          "description" : "The password for login in clear text"
-        }, {
-          "name" : "username",
-          "in" : "query",
-          "type" : "string",
-          "description" : "The user name for login"
-        } ],
-        "responses" : {
-          "200" : {
-            "schema" : {
-              "type" : "string"
-            },
-            "headers" : {
-              "X-Rate-Limit" : {
-                "type" : "integer",
-                "description" : "calls per hour allowed by the user",
-                "format" : "int32"
-              },
-              "X-Expires-After" : {
-                "type" : "string",
-                "description" : "date in UTC when token expires",
-                "format" : "date-time"
-              }
-            },
-            "description" : "successful operation",
-            "required" : false
-          },
-          "400" : {
-            "description" : "Invalid username/password supplied",
-            "required" : false
-          }
-        }
-      }
-    },
-    "/user" : {
-      "post" : {
-        "summary" : "Create user",
-        "description" : "This can only be done by the logged in user.",
-        "operationId" : "createUser",
-        "produces" : [ "application/xml", "application/json" ],
-        "tags" : [ "user" ],
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "body",
-          "required" : false,
-          "schema" : {
-            "$ref" : "#/definitions/User"
-          },
-          "description" : "Created user object"
-        } ],
-        "responses" : {
-          "default" : {
-            "description" : "successful operation",
-            "required" : false
-          }
-        }
-      }
-    },
-    "/user/createWithArray" : {
-      "post" : {
-        "summary" : "Creates list of users with given input array",
-        "description" : "",
-        "operationId" : "createUsersWithArrayInput",
-        "produces" : [ "application/xml", "application/json" ],
-        "tags" : [ "user" ],
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "body",
-          "required" : false,
-          "schema" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/definitions/User"
-            }
-          },
-          "description" : "List of user object"
-        } ],
-        "responses" : {
-          "default" : {
-            "description" : "successful operation",
-            "required" : false
-          }
-        }
-      }
-    },
-    "/user/{username}" : {
-      "get" : {
-        "summary" : "Get user by user name",
-        "description" : "",
-        "operationId" : "getUserByName",
-        "produces" : [ "application/xml", "application/json" ],
-        "tags" : [ "user" ],
-        "responses" : {
-          "200" : {
-            "schema" : {
-              "$ref" : "#/definitions/User"
-            },
-            "description" : "successful operation",
-            "required" : false
-          },
-          "400" : {
-            "description" : "Invalid username supplied",
-            "required" : false
-          },
-          "404" : {
-            "description" : "User not found",
-            "required" : false
-          }
-        }
-      },
-      "delete" : {
-        "summary" : "Delete user",
-        "description" : "This can only be done by the logged in user.",
-        "operationId" : "deleteUser",
-        "produces" : [ "application/xml", "application/json" ],
-        "tags" : [ "user" ],
-        "responses" : {
-          "400" : {
-            "description" : "Invalid username supplied",
-            "required" : false
-          },
-          "404" : {
-            "description" : "User not found",
-            "required" : false
-          }
-        }
-      },
-      "put" : {
-        "summary" : "Updated user",
-        "description" : "This can only be done by the logged in user.",
-        "operationId" : "updateUser",
-        "produces" : [ "application/xml", "application/json" ],
-        "tags" : [ "user" ],
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "body",
-          "required" : false,
-          "schema" : {
-            "$ref" : "#/definitions/User"
-          },
-          "description" : "Updated user object"
-        } ],
-        "responses" : {
-          "400" : {
-            "description" : "Invalid user supplied",
-            "required" : false
-          },
-          "404" : {
-            "description" : "User not found",
-            "required" : false
-          }
-        }
-      },
-      "parameters" : [ {
-        "type" : "string",
-        "description" : "The name that needs to be fetched. Use user1 for testing. ",
-        "name" : "username",
-        "in" : "path"
-      } ]
-    },
-    "/user/logout" : {
-      "get" : {
-        "summary" : "Logs out current logged in user session",
-        "description" : "",
-        "operationId" : "logoutUser",
-        "produces" : [ "application/xml", "application/json" ],
-        "tags" : [ "user" ],
-        "responses" : {
-          "default" : {
-            "description" : "successful operation",
-            "required" : false
-          }
-        }
-      }
-    },
     "/pet/findByStatus" : {
       "get" : {
         "summary" : "Finds Pets by status",
@@ -391,21 +199,36 @@
         "produces" : [ "application/json" ],
         "tags" : [ "pet" ],
         "parameters" : [ {
-          "type" : "file",
+          "type" : "string",
           "description" : "file to upload",
           "name" : "file",
-          "in" : "formData"
+          "in" : "formData",
+          "enum" : [ ]
+        }, {
+          "type" : "string",
+          "description" : "",
+          "name" : "s",
+          "in" : "formData",
+          "example" : "",
+          "enum" : [ ]
         }, {
           "type" : "string",
           "description" : "Additional data to pass to server",
           "name" : "additionalMetadata",
           "in" : "formData"
+        }, {
+          "description" : "",
+          "name" : "user",
+          "in" : "formData",
+          "example" : "",
+          "$ref" : "#/definitions/62745d4a-d54c-4283-979b-1e128b41dcef"
         } ],
         "responses" : {
           "200" : {
             "schema" : {
               "$ref" : "#/definitions/ApiResponse"
             },
+            "headers" : { },
             "description" : "successful operation",
             "required" : false
           }
@@ -539,8 +362,9 @@
       },
       "get" : {
         "summary" : "Find pet by ID",
-        "description" : "Returns a single pet",
+        "description" : "<p>Returns a single pet</p>",
         "operationId" : "getPetById",
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/xml", "application/json" ],
         "tags" : [ "pet" ],
         "responses" : {
@@ -548,14 +372,38 @@
             "schema" : {
               "$ref" : "#/definitions/Pet"
             },
+            "headers" : {
+              "hehehe" : {
+                "type" : "array",
+                "description" : "",
+                "name" : "hehehe",
+                "items" : {
+                  "type" : "array",
+                  "description" : "",
+                  "items" : {
+                    "type" : "number",
+                    "description" : "",
+                    "example" : "",
+                    "format" : "",
+                    "enum" : [ ]
+                  },
+                  "example" : "",
+                  "uniqueItems" : false
+                },
+                "example" : "",
+                "uniqueItems" : false
+              }
+            },
             "description" : "successful operation",
             "required" : false
           },
           "400" : {
+            "headers" : { },
             "description" : "Invalid ID supplied",
             "required" : false
           },
           "404" : {
+            "headers" : { },
             "description" : "Pet not found",
             "required" : false
           }
@@ -587,12 +435,244 @@
         "type" : "integer",
         "description" : "ID of pet to return",
         "name" : "petId",
-        "in" : "path",
-        "format" : "int64"
+        "format" : "int64",
+        "enum" : [ ]
       } ]
+    },
+    "/user/createWithList" : {
+      "post" : {
+        "summary" : "Creates list of users with given input array",
+        "description" : "",
+        "operationId" : "createUsersWithListInput",
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "users" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/User"
+            }
+          },
+          "description" : "List of user object"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation",
+            "required" : false
+          }
+        }
+      }
+    },
+    "/user/login" : {
+      "get" : {
+        "summary" : "Logs user into the system",
+        "description" : "",
+        "operationId" : "loginUser",
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "users" ],
+        "parameters" : [ {
+          "name" : "password",
+          "in" : "query",
+          "type" : "string",
+          "description" : "The password for login in clear text"
+        }, {
+          "name" : "username",
+          "in" : "query",
+          "type" : "string",
+          "description" : "The user name for login"
+        } ],
+        "responses" : {
+          "200" : {
+            "schema" : {
+              "type" : "string"
+            },
+            "headers" : {
+              "X-Rate-Limit" : {
+                "type" : "integer",
+                "description" : "calls per hour allowed by the user",
+                "format" : "int32"
+              },
+              "X-Expires-After" : {
+                "type" : "string",
+                "description" : "date in UTC when token expires",
+                "format" : "date-time"
+              }
+            },
+            "description" : "successful operation",
+            "required" : false
+          },
+          "400" : {
+            "description" : "Invalid username/password supplied",
+            "required" : false
+          }
+        }
+      }
+    },
+    "/user" : {
+      "post" : {
+        "summary" : "Create user",
+        "description" : "This can only be done by the logged in user.",
+        "operationId" : "createUser",
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "users" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/User"
+          },
+          "description" : "Created user object"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation",
+            "required" : false
+          }
+        }
+      }
+    },
+    "/user/createWithArray" : {
+      "post" : {
+        "summary" : "Creates list of users with given input array",
+        "description" : "",
+        "operationId" : "createUsersWithArrayInput",
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "users" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/User"
+            }
+          },
+          "description" : "List of user object"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation",
+            "required" : false
+          }
+        }
+      }
+    },
+    "/user/{username}" : {
+      "get" : {
+        "summary" : "Get user by user name",
+        "description" : "",
+        "operationId" : "getUserByName",
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "users" ],
+        "responses" : {
+          "200" : {
+            "schema" : {
+              "$ref" : "#/definitions/User"
+            },
+            "description" : "successful operation",
+            "required" : false
+          },
+          "400" : {
+            "description" : "Invalid username supplied",
+            "required" : false
+          },
+          "404" : {
+            "description" : "User not found",
+            "required" : false
+          }
+        }
+      },
+      "delete" : {
+        "summary" : "Delete user",
+        "description" : "This can only be done by the logged in user.",
+        "operationId" : "deleteUser",
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "users" ],
+        "responses" : {
+          "400" : {
+            "description" : "Invalid username supplied",
+            "required" : false
+          },
+          "404" : {
+            "description" : "User not found",
+            "required" : false
+          }
+        }
+      },
+      "put" : {
+        "summary" : "Updated user",
+        "description" : "This can only be done by the logged in user.",
+        "operationId" : "updateUser",
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "users" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/User"
+          },
+          "description" : "Updated user object"
+        } ],
+        "responses" : {
+          "400" : {
+            "description" : "Invalid user supplied",
+            "required" : false
+          },
+          "404" : {
+            "description" : "User not found",
+            "required" : false
+          }
+        }
+      },
+      "parameters" : [ {
+        "type" : "string",
+        "description" : "The name that needs to be fetched. Use user1 for testing. ",
+        "name" : "username",
+        "in" : "path"
+      } ]
+    },
+    "/user/logout" : {
+      "get" : {
+        "summary" : "Logs out current logged in user session",
+        "description" : "",
+        "operationId" : "logoutUser",
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "users" ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation",
+            "required" : false
+          }
+        }
+      }
     }
   },
   "definitions" : {
+    "schema" : {
+      "schema" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "name" : "name",
+            "enum" : [ ]
+          },
+          "id" : {
+            "type" : "integer",
+            "name" : "id",
+            "format" : "int64",
+            "enum" : [ ]
+          }
+        }
+      },
+      "description" : ""
+    },
     "Order" : {
       "schema" : {
         "type" : "object",
@@ -625,23 +705,6 @@
         },
         "xml" : {
           "name" : "Order"
-        }
-      }
-    },
-    "Category" : {
-      "schema" : {
-        "type" : "object",
-        "properties" : {
-          "name" : {
-            "type" : "string"
-          },
-          "id" : {
-            "type" : "integer",
-            "format" : "int64"
-          }
-        },
-        "xml" : {
-          "name" : "Category"
         }
       }
     },
@@ -682,6 +745,23 @@
         }
       }
     },
+    "Category" : {
+      "schema" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        },
+        "xml" : {
+          "name" : "Category"
+        }
+      }
+    },
     "Tag" : {
       "schema" : {
         "type" : "object",
@@ -696,23 +776,6 @@
         },
         "xml" : {
           "name" : "Tag"
-        }
-      }
-    },
-    "ApiResponse" : {
-      "schema" : {
-        "type" : "object",
-        "properties" : {
-          "code" : {
-            "type" : "integer",
-            "format" : "int32"
-          },
-          "type" : {
-            "type" : "string"
-          },
-          "message" : {
-            "type" : "string"
-          }
         }
       }
     },
@@ -759,6 +822,23 @@
         },
         "xml" : {
           "name" : "Pet"
+        }
+      }
+    },
+    "ApiResponse" : {
+      "schema" : {
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "type" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
+          }
         }
       }
     }
