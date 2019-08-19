@@ -1,7 +1,7 @@
 {
   "swagger" : "2.0",
   "info" : {
-    "description" : "This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.",
+    "description" : "<p>This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.</p>",
     "version" : "1.0.0",
     "title" : "Swagger Petstore",
     "termsOfService" : "http://swagger.io/terms/",
@@ -61,14 +61,14 @@
           "name" : "body",
           "required" : false,
           "schema" : {
-            "$ref" : "#/definitions/null"
+            "$ref" : "#/definitions/Order"
           },
           "description" : "order placed for purchasing the pet"
         } ],
         "responses" : {
           "200" : {
             "schema" : {
-              "$ref" : "#/definitions/null"
+              "$ref" : "#/definitions/Order"
             },
             "description" : "successful operation",
             "required" : false
@@ -90,7 +90,7 @@
         "responses" : {
           "200" : {
             "schema" : {
-              "$ref" : "#/definitions/null"
+              "$ref" : "#/definitions/Order"
             },
             "description" : "successful operation",
             "required" : false
@@ -146,7 +146,7 @@
           "schema" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/definitions/null"
+              "$ref" : "#/definitions/User"
             }
           },
           "description" : "List of user object"
@@ -216,7 +216,7 @@
           "name" : "body",
           "required" : false,
           "schema" : {
-            "$ref" : "#/definitions/null"
+            "$ref" : "#/definitions/User"
           },
           "description" : "Created user object"
         } ],
@@ -242,7 +242,7 @@
           "schema" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/definitions/null"
+              "$ref" : "#/definitions/User"
             }
           },
           "description" : "List of user object"
@@ -265,7 +265,7 @@
         "responses" : {
           "200" : {
             "schema" : {
-              "$ref" : "#/definitions/null"
+              "$ref" : "#/definitions/User"
             },
             "description" : "successful operation",
             "required" : false
@@ -308,7 +308,7 @@
           "name" : "body",
           "required" : false,
           "schema" : {
-            "$ref" : "#/definitions/null"
+            "$ref" : "#/definitions/User"
           },
           "description" : "Updated user object"
         } ],
@@ -369,7 +369,7 @@
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/null"
+                "$ref" : "#/definitions/Pet"
               }
             },
             "description" : "successful operation",
@@ -404,7 +404,7 @@
         "responses" : {
           "200" : {
             "schema" : {
-              "$ref" : "#/definitions/null"
+              "$ref" : "#/definitions/ApiResponse"
             },
             "description" : "successful operation",
             "required" : false
@@ -418,62 +418,6 @@
         "in" : "path",
         "format" : "int64"
       } ]
-    },
-    "/pet" : {
-      "post" : {
-        "summary" : "Add a new pet to the store",
-        "description" : "",
-        "operationId" : "addPet",
-        "consumes" : [ "application/json", "application/xml" ],
-        "produces" : [ "application/xml", "application/json" ],
-        "tags" : [ "pet" ],
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "body",
-          "required" : false,
-          "schema" : {
-            "$ref" : "#/definitions/null"
-          },
-          "description" : "Pet object that needs to be added to the store"
-        } ],
-        "responses" : {
-          "405" : {
-            "description" : "Invalid input",
-            "required" : false
-          }
-        }
-      },
-      "put" : {
-        "summary" : "Update an existing pet",
-        "description" : "",
-        "operationId" : "updatePet",
-        "consumes" : [ "application/json", "application/xml" ],
-        "produces" : [ "application/xml", "application/json" ],
-        "tags" : [ "pet" ],
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "body",
-          "required" : false,
-          "schema" : {
-            "$ref" : "#/definitions/null"
-          },
-          "description" : "Pet object that needs to be added to the store"
-        } ],
-        "responses" : {
-          "400" : {
-            "description" : "Invalid ID supplied",
-            "required" : false
-          },
-          "404" : {
-            "description" : "Pet not found",
-            "required" : false
-          },
-          "405" : {
-            "description" : "Validation exception",
-            "required" : false
-          }
-        }
-      }
     },
     "/pet/findByTags" : {
       "get" : {
@@ -498,7 +442,7 @@
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/null"
+                "$ref" : "#/definitions/Pet"
               }
             },
             "description" : "successful operation",
@@ -546,7 +490,7 @@
         "responses" : {
           "200" : {
             "schema" : {
-              "$ref" : "#/definitions/null"
+              "$ref" : "#/definitions/Pet"
             },
             "description" : "successful operation",
             "required" : false
@@ -590,6 +534,172 @@
         "in" : "path",
         "format" : "int64"
       } ]
+    },
+    "/pet/{petId2}/{petId3}" : {
+      "patch" : {
+        "summary" : "patch",
+        "description" : "",
+        "operationId" : "",
+        "consumes" : [ ],
+        "produces" : [ ],
+        "tags" : [ "pet" ],
+        "parameters" : [ {
+          "name" : "petId",
+          "in" : "query",
+          "type" : "string",
+          "description" : "",
+          "example" : "",
+          "enum" : [ ]
+        }, {
+          "name" : "session-id",
+          "in" : "header",
+          "type" : "string",
+          "description" : "",
+          "example" : "",
+          "enum" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "schema" : {
+              "type" : "string",
+              "enum" : [ ]
+            },
+            "headers" : { },
+            "description" : "",
+            "required" : false
+          },
+          "202" : {
+            "headers" : { },
+            "description" : "",
+            "required" : false
+          }
+        }
+      },
+      "post" : {
+        "summary" : "Add a new pet to the store",
+        "description" : "",
+        "operationId" : "addPet",
+        "consumes" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "pet" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "type" : "object",
+            "properties" : {
+              "qnumber" : {
+                "type" : "number",
+                "description" : "qnumber desc",
+                "example" : "22",
+                "format" : "double",
+                "maximum" : 3,
+                "minimum" : 2,
+                "enum" : [ "1.0", "2.0", "3.0" ],
+                "default" : 22.0
+              },
+              "qstring" : {
+                "type" : "string",
+                "description" : "qstring desc",
+                "example" : "example1",
+                "pattern" : "qweasd",
+                "maxLength" : 3,
+                "enum" : [ "string1", "string2" ],
+                "default" : "eq"
+              },
+              "qinteger" : {
+                "type" : "integer",
+                "format" : "int32"
+              },
+              "qboolean" : {
+                "type" : "boolean",
+                "example" : "true",
+                "default" : true
+              },
+              "qarray" : {
+                "type" : "array",
+                "description" : "desc1",
+                "items" : {
+                  "type" : "array",
+                  "description" : "desc2",
+                  "items" : {
+                    "type" : "array",
+                    "description" : "desc3",
+                    "items" : {
+                      "type" : "string",
+                      "description" : "strdesc",
+                      "example" : "exa1",
+                      "pattern" : "daasdad",
+                      "maxLength" : 6,
+                      "minLength" : 5,
+                      "enum" : [ "asd", "qwe" ],
+                      "default" : "default"
+                    },
+                    "example" : "5",
+                    "maxItems" : 5,
+                    "minItems" : 4
+                  },
+                  "example" : "2",
+                  "maxItems" : 4,
+                  "minItems" : 3
+                },
+                "example" : "1",
+                "maxItems" : 3,
+                "minItems" : 1
+              }
+            }
+          },
+          "description" : "Pet object that needs to be added to the store"
+        } ],
+        "responses" : {
+          "405" : {
+            "description" : "Invalid input",
+            "required" : false
+          }
+        }
+      },
+      "put" : {
+        "summary" : "Update an existing pet",
+        "description" : "",
+        "operationId" : "updatePet",
+        "consumes" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/xml", "application/json" ],
+        "tags" : [ "pet" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/Pet"
+          },
+          "description" : "Pet object that needs to be added to the store"
+        } ],
+        "responses" : {
+          "400" : {
+            "description" : "Invalid ID supplied",
+            "required" : false
+          },
+          "404" : {
+            "description" : "Pet not found",
+            "required" : false
+          },
+          "405" : {
+            "description" : "Validation exception",
+            "required" : false
+          }
+        }
+      },
+      "parameters" : [ {
+        "type" : "integer",
+        "name" : "petId2",
+        "format" : "",
+        "enum" : [ ]
+      }, {
+        "type" : "string",
+        "name" : "petId3",
+        "enum" : [ ]
+      } ]
     }
   },
   "definitions" : {
@@ -627,6 +737,27 @@
           "name" : "Order"
         }
       }
+    },
+    "newModel" : {
+      "schema" : {
+        "type" : "object",
+        "name" : "obj1",
+        "properties" : {
+          "obj-str" : {
+            "type" : "string",
+            "name" : "obj-str",
+            "enum" : [ ],
+            "default" : ""
+          },
+          "obj-num" : {
+            "type" : "number",
+            "name" : "obj-num",
+            "enum" : [ ],
+            "default" : "2"
+          }
+        }
+      },
+      "description" : ""
     },
     "User" : {
       "schema" : {
@@ -699,23 +830,6 @@
         }
       }
     },
-    "ApiResponse" : {
-      "schema" : {
-        "type" : "object",
-        "properties" : {
-          "code" : {
-            "type" : "integer",
-            "format" : "int32"
-          },
-          "type" : {
-            "type" : "string"
-          },
-          "message" : {
-            "type" : "string"
-          }
-        }
-      }
-    },
     "Pet" : {
       "schema" : {
         "type" : "object",
@@ -739,12 +853,12 @@
             "format" : "int64"
           },
           "category" : {
-            "$ref" : "#/definitions/null"
+            "$ref" : "#/definitions/Category"
           },
           "tags" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/definitions/null"
+              "$ref" : "#/definitions/Tag"
             },
             "xml" : {
               "name" : "tag",
@@ -759,6 +873,23 @@
         },
         "xml" : {
           "name" : "Pet"
+        }
+      }
+    },
+    "ApiResponse" : {
+      "schema" : {
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "type" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
+          }
         }
       }
     }
